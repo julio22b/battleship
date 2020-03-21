@@ -41,6 +41,9 @@ function switchGameboards() {
     const gameboardOne = document.querySelector('#container-one');
     gameboardOne.style.display = 'none';
 
+    const blanket = document.querySelector('.cover-blanket');
+    blanket.classList.remove('active');
+
     const gameboardTwo = document.querySelector('#container-two');
     gameboardTwo.style.display = 'flex';
 
@@ -56,6 +59,13 @@ function openCoverBlanket() {
     passDeviceBtn.addEventListener('click', switchGameboards);
 }
 
+function checkMobileDevice() {
+    if (/Mobi|Android/i.test(navigator.userAgent)) {
+        const formTitle = document.querySelector('#form-title');
+        formTitle.textContent = 'Tap on a cell';
+    }
+}
+
 export {
     hideStartScreen,
     showMainScreen,
@@ -63,4 +73,5 @@ export {
     startGame,
     switchGameboards,
     openCoverBlanket,
+    checkMobileDevice,
 };
