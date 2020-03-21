@@ -1,0 +1,786 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Lato';
+}
+
+/* =============================
+        START SCREEN 
+================================*/
+
+body {
+    background-color: #fdfdfd;
+    position: relative;
+}
+
+.start-screen {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+}
+
+.start-screen h1 {
+    width: 100%;
+    text-align: center;
+    font-size: 5rem;
+    color: #011638;
+    font-family: 'Trade Winds';
+}
+
+.start-screen button {
+    background-color: #087e8b;
+    color: #cdcdcd;
+    padding: 2rem;
+    margin: 5rem;
+    font-size: 2em;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: all 250ms ease-in;
+    box-shadow: 0px 1px 20px 2px rgba(87, 87, 87, 0.55);
+}
+
+.start-screen button:hover {
+    background-color: #cdcdcd;
+    color: #087e8b;
+    transform: scale(1.1);
+    box-shadow: 0px 1px 20px 2px #087e8b60;
+}
+
+.start-screen span {
+    font-weight: bold;
+    color: #272727d2;
+}
+
+.hide {
+    animation: disappear linear 250ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes disappear {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .start-screen {
+        flex-direction: column;
+    }
+
+    .start-screen h1 {
+        font-size: 3em;
+        margin-bottom: 1em;
+    }
+
+    .start-screen button {
+        padding: 1em;
+        margin: 2em;
+        font-size: 1.5em;
+    }
+}
+
+/* ============================
+        MAIN SCREEN
+=============================*/
+
+.main-screen {
+    display: none;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.main-screen .boards {
+    display: flex;
+    height: 100vh;
+    flex: 1;
+}
+
+.main-screen .boards .container {
+    flex: 1;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+}
+
+.main-screen .boards div p {
+    text-align: center;
+    font-size: 1.4em;
+    font-weight: bold;
+    padding: 2em 0;
+    width: 100%;
+    height: 5vh;
+    background-color: #087e8b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    letter-spacing: 1px;
+    box-shadow: 0px 10px 13px -4px #b3b3b3;
+    text-shadow: 0px 0px 5px #011638;
+    position: relative;
+}
+
+.main-screen .boards div p::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 20px;
+    right: 0;
+    background-color: #087e8b;
+    z-index: 3;
+}
+
+.main-screen .boards .numbers {
+    position: absolute;
+    display: flex;
+    width: 464px;
+    justify-content: space-around;
+    text-align: center;
+    top: 130px;
+    color: #00307e;
+    font-weight: bold;
+}
+
+.main-screen .boards .letters {
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    height: 464px;
+    flex-direction: column;
+    left: 80px;
+    top: 175px;
+    color: #00307e;
+    font-weight: bold;
+}
+
+.main-screen .boards .container:first-child::after {
+    content: '';
+    height: 75%;
+    border: 1px solid #011638;
+    position: absolute;
+    right: 0;
+    top: 17%;
+}
+
+.main-screen .boards .gameboard-one,
+.main-screen .boards .gameboard-two {
+    display: flex;
+    flex-wrap: wrap;
+    width: 464px;
+    margin-top: 5em;
+    box-shadow: 0px 0px 5px #011638;
+}
+.main-screen .boards .gameboard-one .cell,
+.main-screen .boards .gameboard-two .cell {
+    width: 58px;
+    height: 58px;
+    border: #011638 solid 1px;
+    position: relative;
+}
+
+.main-screen .boards .ship-starting-point {
+    position: absolute;
+    display: flex;
+    z-index: -3;
+    top: 0;
+    left: 0;
+    height: 57px;
+    width: 232px;
+    background-color: #087e8b17;
+}
+
+.main-screen .boards .biggest-ship {
+    height: 57px;
+    width: 232px;
+    background-image: url(./img/battleship\(1\).png);
+    background-size: 80% 85%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.main-screen .boards .ship-starting-point.biggest-ship.rotated {
+    transform: rotate(90deg) translate(37%, 154%);
+}
+
+.main-screen .boards .bigger-ship {
+    height: 57px;
+    width: 173px;
+    background-image: url(/dist/img/battleship.png);
+    background-size: 75% 85%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.main-screen .boards .bigger-ship.rotated {
+    transform: rotate(90deg) translate(33%, 103%);
+}
+
+.main-screen .boards .smaller-ship {
+    height: 57px;
+    width: 116px;
+    background-image: url(./img/battleship\(2\).png);
+    background-size: 90% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.main-screen .boards .smaller-ship.rotated {
+    transform: rotate(90deg) translate(25%, 53%);
+}
+
+.main-screen .boards .smallest-ship {
+    height: 57px;
+    width: 57px;
+    background-image: url(./img/ship.png);
+    background-size: 90% 90%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.main-screen .boards .gameboard-two .cell {
+    cursor: url('./img/compass.svg'), crosshair;
+}
+
+.main-screen .explosion {
+    background-image: url(./img/fire.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    animation: hitCell 250ms ease-in;
+}
+
+.main-screen .sea {
+    background-image: url(./img/sea.svg);
+    background-size: cover;
+    animation: hitCell 250ms ease-in;
+}
+
+@keyframes hitCell {
+    0% {
+        transform: scale(1);
+        border: none;
+    }
+    100% {
+        transform: scale(1.1);
+        border: 5px solid red;
+    }
+}
+
+.main-screen .sunk-ships {
+    display: none;
+    justify-content: space-around;
+    width: 70%;
+    margin-top: 2em;
+    opacity: 0.9;
+}
+
+.main-screen .sunk-ships figure {
+    display: flex;
+    flex-flow: column wrap;
+    align-content: center;
+    flex-basis: 10%;
+    position: relative;
+}
+
+.main-screen .sunk-ships figure img {
+    width: 100%;
+}
+
+.main-screen .sunk-ships figure figcaption {
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.main-screen .sunk-ships figure.all-sunk::after {
+    content: '';
+    position: absolute;
+    height: 80%;
+    border: 5px solid rgba(255, 0, 0, 0.801);
+    transform: rotate(45deg);
+}
+
+.main-screen .sunk-ships figure.all-sunk::before {
+    content: '';
+    position: absolute;
+    height: 80%;
+    border: 5px solid rgba(255, 0, 0, 0.801);
+    transform: rotate(-45deg);
+}
+
+.main-screen .sunk-ships figure.blink-1 {
+    -webkit-animation: blink-1 0.6s both;
+    animation: blink-1 0.6s both;
+}
+
+@media screen and (max-width: 720px) {
+    .main-screen .boards {
+        flex-direction: column;
+    }
+
+    .main-screen .boards div p {
+        font-size: 1.2em;
+        padding: 1.3em 0;
+    }
+
+    .main-screen .boards .numbers {
+        top: 60px;
+        width: 264px;
+        font-size: 0.8em;
+        opacity: 0.8;
+    }
+
+    .main-screen .boards .letters {
+        left: 3px;
+        top: 85px;
+        height: 264px;
+        font-size: 0.8em;
+        opacity: 0.8;
+    }
+
+    .main-screen .boards .gameboard-one,
+    .main-screen .boards .gameboard-two {
+        margin-top: 2em;
+        width: 264px;
+        height: 264px;
+    }
+
+    .main-screen .boards .gameboard-one .cell,
+    .main-screen .boards .gameboard-two .cell {
+        width: 33px;
+        height: 33px;
+    }
+
+    .main-screen .boards .biggest-ship {
+        width: 132px;
+        height: 33px;
+    }
+
+    .main-screen .boards .bigger-ship {
+        width: 99px;
+        height: 33px;
+    }
+
+    .main-screen .boards .smaller-ship {
+        width: 66px;
+        height: 33px;
+    }
+
+    .main-screen .boards .smallest-ship {
+        width: 33px;
+        height: 33px;
+    }
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2020-3-17 12:4:34
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation blink-1
+ * ----------------------------------------
+ */
+@-webkit-keyframes blink-1 {
+    0%,
+    50%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    25%,
+    75% {
+        opacity: 0;
+        transform: scale(1.2);
+    }
+}
+@keyframes blink-1 {
+    0%,
+    50%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    25%,
+    75% {
+        opacity: 0;
+        transform: scale(1.2);
+    }
+}
+
+/* =======================
+    SHIP PLACEMENT FORM
+    ======================= */
+
+.place-ships {
+    height: 70%;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column wrap;
+    position: relative;
+    margin-top: 3em;
+}
+
+.place-ships .ship-container {
+    position: absolute;
+    width: 80%;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.place-ships .bigger-ship-container.ship-container,
+.place-ships .smaller-ship-container.ship-container,
+.place-ships .smallest-ship-container.ship-container {
+    transform: scale(0) translateX(-50%);
+}
+
+.place-ships .ship-container.scale-in-hor-center {
+    -webkit-animation: scale-in-hor-center 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    animation: scale-in-hor-center 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.place-ships .ship-container > div {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.place-ships label {
+    font-size: 2rem;
+    letter-spacing: 1px;
+    color: #272727;
+}
+
+.place-ships span {
+    color: #272727;
+}
+
+.place-ships img {
+    width: 20%;
+    margin: 2em 0;
+}
+
+.place-ships input {
+    margin-bottom: 1em;
+    background-color: #ffffff;
+    border: none;
+    border-bottom: 2px solid #011638;
+    font-size: 1.2rem;
+    color: #087e8b;
+    padding: 0.5em;
+    text-align: center;
+    width: 70%;
+    text-transform: capitalize;
+}
+
+.place-ships input:focus {
+    box-shadow: 0px 0px 3px green;
+    border-bottom: 2px solid transparent;
+}
+
+.place-ships input:invalid {
+    box-shadow: 0px 0px 3px red;
+    border-bottom: 2px solid transparent;
+}
+
+.place-ships .form-buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    flex-basis: 100%;
+}
+
+.place-ships .form-buttons button {
+    background-color: #087e8b;
+    color: #ffffff;
+    padding: 0.5em 0;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 1.5em;
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+    width: 25%;
+    border: 2px solid #087e8b;
+}
+
+.place-ships .form-buttons button:last-child {
+    background-color: white;
+    border: 2px solid #087e8b;
+    color: #087e8b;
+    font-weight: normal;
+    letter-spacing: 2px;
+}
+
+.place-ships .form-buttons #invisible-button {
+    visibility: hidden;
+}
+
+.container > button {
+    background: #011638;
+    border: 2px solid #087e8b;
+    box-shadow: 0px 0px 5px #011638;
+    color: #ffffff;
+    font-size: 1.3rem;
+    padding: 1em;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 250ms ease-in;
+    transform: scale(0);
+    margin-top: -4em;
+}
+
+@media screen and (max-width: 720px) {
+    #form-container {
+        margin-top: 1em;
+    }
+
+    #form-container > p {
+        font-size: 1em;
+    }
+
+    #form-container > p::after {
+        content: none;
+    }
+
+    /* form */
+
+    form.place-ships {
+        margin-top: 0;
+        width: 100%;
+    }
+
+    form.place-ships .ship-container {
+        width: 100%;
+        margin-top: 0.5em;
+        flex-direction: row;
+    }
+
+    form.place-ships .ship-container div {
+        flex-basis: 60%;
+    }
+
+    form.place-ships .ship-container div label {
+        font-size: 1.4em;
+        text-align: center;
+    }
+
+    form.place-ships .ship-container div span {
+        font-size: 1em;
+    }
+
+    form.place-ships .ship-container div img {
+        margin: 0.5em 0;
+        width: 30%;
+    }
+
+    form.place-ships .ship-container div input {
+        margin-bottom: 0;
+        width: 70%;
+        font-size: 1em;
+        padding: 0.2em;
+    }
+
+    form.place-ships .ship-container .form-buttons {
+        flex-basis: 40%;
+        height: 100%;
+        justify-content: space-evenly;
+    }
+
+    form.place-ships .ship-container .form-buttons button {
+        width: 80%;
+        margin-bottom: 0;
+        font-size: 0.9em;
+    }
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2020-3-17 15:9:14
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation scale-in-hor-center
+ * ----------------------------------------
+ */
+@-webkit-keyframes scale-in-hor-center {
+    0% {
+        -webkit-transform: scaleX(0) translateX(-50%);
+        transform: scaleX(0) translateX(-50%);
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: scaleX(1) translateX(-50%);
+        transform: scaleX(1);
+        opacity: 1;
+    }
+}
+@keyframes scale-in-hor-center {
+    0% {
+        -webkit-transform: scaleX(0) translateX(-50%);
+        transform: scaleX(0) translateX(-50%);
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: scaleX(1) translateX(-50%);
+        transform: scaleX(1) translateX(-50%);
+        opacity: 1;
+    }
+}
+
+/* GAME OVER SCREEN */
+
+.game-over-screen {
+    position: absolute;
+    display: none;
+    flex-flow: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: auto auto;
+}
+
+.game-over-message {
+    text-align: center;
+    font-size: 8rem;
+    color: #087e8b;
+    font-weight: bold;
+    text-shadow: 0px 3px 3px black;
+}
+
+.game-over-screen div {
+    display: flex;
+    justify-content: space-around;
+}
+
+.game-over-screen div button {
+    cursor: pointer;
+    border: none;
+    background-color: #011638;
+    color: white;
+    font-size: 2rem;
+    padding: 1em;
+    margin: 1.5em 0.5em;
+    box-shadow: 0px 0px 5px #011638;
+}
+
+div.jello-horizontal {
+    outline: green;
+}
+
+/* cover blanket */
+
+.cover-blanket {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100vw;
+    height: 0px;
+    background-color: #f3f3f3;
+    opacity: 0;
+    transition: opacity 500ms ease;
+    z-index: 10;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.active.cover-blanket {
+    height: 100vh;
+    opacity: 1;
+}
+
+.cover-blanket div p {
+    text-align: center;
+    padding: 0.5em 0;
+    font-size: 1.5em;
+    color: #272727;
+}
+
+.cover-blanket div p:nth-child(2) {
+    font-weight: bold;
+    font-size: 2em;
+    font-family: 'Trade Winds';
+    color: #087e8b;
+}
+
+.cover-blanket .pass-device-btn {
+    cursor: pointer;
+    border: #ffffff 5px solid;
+    font-size: 1.5rem;
+    padding: 1em;
+    -webkit-animation: color-change-4x 4s linear infinite alternate both;
+    animation: color-change-4x 4s linear infinite alternate both;
+    margin-top: -5em;
+}
+
+.cover-blanket .pass-device-btn p {
+    color: white;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-shadow: 0px 0px 5px black;
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2020-3-20 21:16:17
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation color-change-4x
+ * ----------------------------------------
+ */
+@-webkit-keyframes color-change-4x {
+    0% {
+        background: #087e8b;
+    }
+    50% {
+        background: #046570;
+    }
+    100% {
+        background: #033a41;
+    }
+}
+@keyframes color-change-4x {
+    0% {
+        background: #087e8b;
+    }
+    50% {
+        background: #046570;
+    }
+    100% {
+        background: #033a41;
+    }
+}
