@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Battleship</title>
+        <link rel="stylesheet" href="style.css" />
+        <!-- <link
+            href="https://fonts.googleapis.com/css?family=Lato|Trade+Winds&display=swap"
+            rel="stylesheet"
+        /> -->
+    </head>
+    <body>
+        <div class="cover-blanket">
+            <div>
+                <p>Captain</p>
+                <p id="name">Hack Finch</p>
+                <p>is next</p>
+            </div>
+            <button class="pass-device-btn">
+                <p>Pass</p>
+                <p>Device</p>
+            </button>
+        </div>
+        <div class="start-screen">
+            <h1>Battleship</h1>
+            <button class="one-player">1 player</button>
+            <span>or</span>
+            <button class="two-players">2 players</button>
+        </div>
+        <div class="main-screen">
+            <div class="boards">
+                <div class="container" id="container-one">
+                    <div class="letters">
+                        <div>A</div>
+                        <div>B</div>
+                        <div>C</div>
+                        <div>D</div>
+                        <div>E</div>
+                        <div>F</div>
+                        <div>G</div>
+                        <div>H</div>
+                    </div>
+                    <div class="numbers">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                    </div>
+                    <p id="player-one-name">Your Board</p>
+                    <div class="gameboard-one"></div>
+                    <div class="sunk-ships" id="player1-sunk-ships">
+                        <figure>
+                            <img src="./img/battleship(1).png" alt="" />
+                            <figcaption class="biggest-sunk">0/1</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="./img/battleship.png" alt="" />
+                            <figcaption class="bigger-sunk">0/2</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="./img/battleship(2).png" alt="" />
+                            <figcaption class="smaller-sunk">0/3</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="./img/ship.png" alt="" />
+                            <figcaption class="smallest-sunk">0/4</figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="container" id="container-two">
+                    <div class="letters">
+                        <div>A</div>
+                        <div>B</div>
+                        <div>C</div>
+                        <div>D</div>
+                        <div>E</div>
+                        <div>F</div>
+                        <div>G</div>
+                        <div>H</div>
+                    </div>
+                    <div class="numbers">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                    </div>
+                    <p id="player-two-name">Computer's Board</p>
+                    <div class="gameboard-two"></div>
+                    <div class="sunk-ships" id="player2-sunk-ships">
+                        <figure>
+                            <img src="./img/battleship(1).png" alt="" />
+                            <figcaption class="biggest-sunk">0/1</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="./img/battleship.png" alt="" />
+                            <figcaption class="bigger-sunk">0/2</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="./img/battleship(2).png" alt="" />
+                            <figcaption class="smaller-sunk">0/3</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="./img/ship.png" alt="" />
+                            <figcaption class="smallest-sunk">0/4</figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="container" id="form-container">
+                    <p id="form-title">Click on a cell or type the starting point of your ships</p>
+                    <form action="#" class="place-ships">
+                        <div class="biggest-ship-container ship-container">
+                            <div>
+                                <label for="biggest">Very big ship</label>
+                                <span><span id="biggest-quantity">0/1</span> | Len: 4</span>
+                                <img src="./img/battleship(1).png" alt="" />
+                                <input
+                                    type="text"
+                                    name="biggest"
+                                    id="biggest-ship"
+                                    placeholder="Example: B7"
+                                    maxlength="2"
+                                    autocomplete="off"
+                                />
+                            </div>
+
+                            <div class="form-buttons">
+                                <button id="place-biggest">Place</button>
+                                <button id="rotate-biggest">Rotate</button>
+                            </div>
+                        </div>
+
+                        <div class="bigger-ship-container ship-container">
+                            <div>
+                                <label for="bigger">Big ship</label>
+                                <span><span id="bigger-quantity">0/2</span> | Len: 3</span>
+                                <img src="./img/battleship.png" alt="" />
+                                <input
+                                    type="text"
+                                    name="bigger"
+                                    id="bigger-ship"
+                                    maxlength="2"
+                                    autocomplete="off"
+                                />
+                            </div>
+
+                            <div class="form-buttons">
+                                <button id="place-bigger">Place</button>
+                                <button id="rotate-bigger">Rotate</button>
+                            </div>
+                        </div>
+
+                        <div class="smaller-ship-container ship-container">
+                            <div>
+                                <label for="smaller">Small ship</label>
+                                <span><span id="smaller-quantity">0/3</span> | Len: 2</span>
+                                <img src="./img/battleship(2).png" alt="" />
+                                <input
+                                    type="text"
+                                    name="smaller"
+                                    id="smaller-ship"
+                                    maxlength="2"
+                                    autocomplete="off"
+                                />
+                            </div>
+
+                            <div class="form-buttons">
+                                <button id="place-smaller">Place</button>
+                                <button id="rotate-smaller">Rotate</button>
+                            </div>
+                        </div>
+
+                        <div class="smallest-ship-container ship-container">
+                            <div>
+                                <label for="smallest">Very small ship</label>
+                                <span><span id="smallest-quantity">0/4</span> | Len: 1</span>
+                                <img src="./img/ship.png" alt="" />
+                                <input
+                                    type="text"
+                                    name="smallest"
+                                    id="smallest-ship"
+                                    maxlength="2"
+                                    autocomplete="off"
+                                />
+                            </div>
+
+                            <div class="form-buttons">
+                                <button id="place-smallest">Place</button>
+                                <button id="invisible-button">Rotate</button>
+                            </div>
+                        </div>
+                    </form>
+                    <button class="start-game">Start Game</button>
+                </div>
+            </div>
+        </div>
+        <div class="game-over-screen">
+            <p class="game-over-message"><span class="winner"></span> wins</p>
+            <div>
+                <button id="reload">Start Screen</button>
+            </div>
+        </div>
+
+        <script src="main.js"></script>
+    </body>
+</html>
