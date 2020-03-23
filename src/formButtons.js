@@ -63,7 +63,7 @@ function shipCrossesOtherShip(shipRect) {
     return { horizontalCrash, verticalCrash };
 }
 
-function biggestShipButtonEvents(boardNumber, Gameboard, gameType) {
+function biggestShipButtonEvents(boardNumber, Gameboard) {
     const gameboard = document.querySelector(`.gameboard-${boardNumber}`);
     const boardRect = gameboard.getBoundingClientRect();
     const biggestShipInput = document.getElementById('biggest-ship');
@@ -166,7 +166,7 @@ function biggestShipButtonEvents(boardNumber, Gameboard, gameType) {
     });
 }
 
-function biggerShipButtonEvents(boardNumber, Gameboard, gameType) {
+function biggerShipButtonEvents(boardNumber, Gameboard) {
     const gameboard = document.querySelector(`.gameboard-${boardNumber}`);
     const boardRect = gameboard.getBoundingClientRect();
     const biggerShipInput = document.getElementById('bigger-ship');
@@ -263,7 +263,7 @@ function biggerShipButtonEvents(boardNumber, Gameboard, gameType) {
     });
 }
 
-function smallerShipButtonEvents(boardNumber, Gameboard, gameType) {
+function smallerShipButtonEvents(boardNumber, Gameboard) {
     const gameboard = document.querySelector(`.gameboard-${boardNumber}`);
     const boardRect = gameboard.getBoundingClientRect();
     const smallerShipInput = document.getElementById('smaller-ship');
@@ -360,7 +360,7 @@ function smallerShipButtonEvents(boardNumber, Gameboard, gameType) {
     });
 }
 
-function smallestShipButtonEvents(boardNumber, Gameboard, gameType) {
+function smallestShipButtonEvents(boardNumber, Gameboard, gameType, GameboardTwo) {
     const smallestShipInput = document.getElementById('smallest-ship');
     const placeSmallest = document.getElementById('place-smallest');
     const smallestShipQuantity = document.getElementById('smallest-quantity');
@@ -421,9 +421,12 @@ function smallestShipButtonEvents(boardNumber, Gameboard, gameType) {
                 smallestShipInput.disabled = true;
                 smallestShipQuantity.style.color = 'green';
                 document.getElementById('smallest-ship').blur();
+                /* check logic */
                 if (globalCounter === 10) {
                     if (gameType === 'one-player') startGame();
                     else if (gameType === 'two-players') {
+                        globalCounter = 0;
+
                         openCoverBlanket();
                     }
                 }
@@ -439,11 +442,11 @@ function datasetCoordinates(ship, first, second = false, third = false, fourth =
     if (fourth) ship.dataset.fourth = fourth;
 }
 
-function addEventsToAllFormButtons(boardNumber, Gameboard, gameType) {
-    biggestShipButtonEvents(boardNumber, Gameboard, gameType);
-    biggerShipButtonEvents(boardNumber, Gameboard, gameType);
-    smallerShipButtonEvents(boardNumber, Gameboard, gameType);
-    smallestShipButtonEvents(boardNumber, Gameboard, gameType);
+function addEventsToAllFormButtons(boardNumber, Gameboard, gameType, GameboardTwo = false) {
+    biggestShipButtonEvents(boardNumber, Gameboard);
+    biggerShipButtonEvents(boardNumber, Gameboard);
+    smallerShipButtonEvents(boardNumber, Gameboard);
+    smallestShipButtonEvents(boardNumber, Gameboard, gameType, GameboardTwo);
 }
 
 function clickOnCellsToTypeInput() {

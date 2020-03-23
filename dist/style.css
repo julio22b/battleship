@@ -343,8 +343,8 @@ body {
     }
 
     .main-screen .boards .letters {
-        left: 15px;
-        top: 95px;
+        left: 20px;
+        top: 100px;
         height: 264px;
         font-size: 0.8em;
         opacity: 0.8;
@@ -698,6 +698,17 @@ body {
 
 div.jello-horizontal {
     outline: green;
+}
+
+@media screen and (max-width: 720px) {
+    p.game-over-message {
+        font-size: 4.5rem;
+    }
+
+    button#reload {
+        font-size: 2rem;
+        padding: 0.5em;
+    }
 }
 
 /* cover blanket */

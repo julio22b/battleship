@@ -2,6 +2,7 @@ import { Gameboard } from './Gameboard';
 import { Player } from './Player';
 import { hideStartScreen, showMainScreen, openShipPlacements } from './changeScreenFuncs';
 import { renderBoard } from './renderBoard';
+import { clickOnCellsToTypeInput } from './formButtons';
 
 function twoPlayersGame() {
     hideStartScreen();
@@ -17,6 +18,8 @@ function twoPlayersGame() {
     const HackFinch = Player();
     const AubreyGameboard = Gameboard();
     const FinchGameboard = Gameboard();
+
+    clickOnCellsToTypeInput();
 
     return { JackAubrey, HackFinch, AubreyGameboard, FinchGameboard };
 }

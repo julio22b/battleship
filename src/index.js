@@ -9,16 +9,16 @@ startOneBtn.addEventListener('click', e => {
     const game = onePlayerGame();
     const { HumanGameboard } = game;
     addEventsToAllFormButtons('one', HumanGameboard, 'one-player');
+    checkMobileDevice();
 });
 
 const startTwoBtn = document.querySelector('.two-players');
 startTwoBtn.addEventListener('click', e => {
     e.preventDefault();
-    checkMobileDevice();
-
     const game = twoPlayersGame();
     const { AubreyGameboard, FinchGameboard } = game;
-    addEventsToAllFormButtons('one', AubreyGameboard, 'two-players');
+    addEventsToAllFormButtons('one', AubreyGameboard, 'two-players', FinchGameboard);
+    checkMobileDevice();
 });
 
 /* reloads page after game is over */

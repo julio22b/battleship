@@ -1,3 +1,5 @@
+import { addEventsToAllFormButtons } from './formButtons';
+
 function hideStartScreen() {
     const startScreen = document.querySelector('.start-screen');
     startScreen.classList.add('hide');
@@ -46,8 +48,10 @@ function switchGameboards() {
 
     const gameboardTwo = document.querySelector('#container-two');
     gameboardTwo.style.display = 'flex';
-
+    document.querySelector('.main-screen').style.display = 'flex';
     document.querySelector('#player-two-name').textContent = 'Captain Hack Finch';
+
+    addEventsToAllFormButtons('two');
 }
 
 function openCoverBlanket() {
