@@ -4,6 +4,7 @@ import { Game } from './Game';
 import { renderBoard } from './renderBoard';
 import { renderShips } from './renderShips';
 import { hideStartScreen, showMainScreen, openShipPlacements } from './changeScreenFuncs';
+import { clickOnCellsToTypeInput } from './formButtons';
 
 function onePlayerGame() {
     hideStartScreen();
@@ -33,6 +34,7 @@ function onePlayerGame() {
     playerPlay(Human, ComputerGameboard, Computer, HumanGameboard);
 
     openShipPlacements();
+    clickOnCellsToTypeInput();
 
     return { Human, HumanGameboard, Computer, ComputerGameboard };
 }

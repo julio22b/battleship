@@ -1,6 +1,10 @@
 import { startGame, openCoverBlanket } from './changeScreenFuncs';
 
 const test = new RegExp('[A-Ha-h]{1}[1-8]');
+const inputEvent = new Event('input', {
+    bubbles: true,
+    cancelable: true,
+});
 const placedShipsRectangles = [];
 
 let globalCounter = 0;
@@ -442,4 +446,18 @@ function addEventsToAllFormButtons(boardNumber, Gameboard, gameType) {
     smallestShipButtonEvents(boardNumber, Gameboard, gameType);
 }
 
-export { addEventsToAllFormButtons };
+function clickOnCellsToTypeInput() {
+    const allCells = document.querySelectorAll('.cell');
+    const inputs = Array.from(document.querySelectorAll('.ship-container input'));
+
+    allCells.forEach(cell => {
+        cell.addEventListener('click', e => {
+            const [enabledInput] = inputs.filter(input => input.disabled === false);
+            enabledInput.value = e.target.dataset.coordinate;
+            enabledInput.dispatchEvent(inputEvent);
+            enabledInput.focus();
+        });
+    });
+}
+
+export { addEventsToAllFormButtons, clickOnCellsToTypeInput };

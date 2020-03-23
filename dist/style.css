@@ -336,15 +336,15 @@ body {
     }
 
     .main-screen .boards .numbers {
-        top: 60px;
+        top: 70px;
         width: 264px;
         font-size: 0.8em;
         opacity: 0.8;
     }
 
     .main-screen .boards .letters {
-        left: 3px;
-        top: 85px;
+        left: 15px;
+        top: 95px;
         height: 264px;
         font-size: 0.8em;
         opacity: 0.8;
@@ -352,7 +352,7 @@ body {
 
     .main-screen .boards .gameboard-one,
     .main-screen .boards .gameboard-two {
-        margin-top: 2em;
+        margin-top: 3em;
         width: 264px;
         height: 264px;
     }
@@ -381,6 +381,10 @@ body {
     .main-screen .boards .smallest-ship {
         width: 33px;
         height: 33px;
+    }
+
+    .main-screen .boards .container:first-child::after {
+        content: none;
     }
 }
 
@@ -462,7 +466,7 @@ body {
     animation: scale-in-hor-center 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
-.place-ships .ship-container > div {
+.place-ships .ship-container div:first-child {
     display: flex;
     flex-flow: column wrap;
     justify-content: center;
@@ -512,20 +516,20 @@ body {
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
-    flex-basis: 100%;
+    flex-basis: 40%;
 }
 
 .place-ships .form-buttons button {
     background-color: #087e8b;
     color: #ffffff;
-    padding: 0.5em 0;
+    padding: 0.5em 1em;
     border: none;
     cursor: pointer;
     margin-bottom: 1.5em;
     font-size: 1.1rem;
     font-weight: bold;
     letter-spacing: 3px;
-    width: 25%;
+    width: 100%;
     border: 2px solid #087e8b;
 }
 

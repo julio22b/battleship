@@ -63,6 +63,9 @@ function checkMobileDevice() {
     if (/Mobi|Android/i.test(navigator.userAgent)) {
         const formTitle = document.querySelector('#form-title');
         formTitle.textContent = 'Tap on a cell';
+
+        const inputs = document.querySelectorAll('.ship-container input');
+        inputs.forEach(input => input.setAttribute('readonly', 'readonly'));
     }
 }
 
