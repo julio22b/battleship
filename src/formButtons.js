@@ -83,7 +83,7 @@ function biggestShipButtonEvents(boardNumber, Gameboard) {
     // eslint-disable-next-line no-unused-vars
     let countBiggest = 0;
 
-    biggestShipInput.addEventListener('input', () => {
+    biggestShipInput.addEventListener('input', function input() {
         const humanCells = document.querySelectorAll(`.gameboard-${boardNumber} .cell`);
         if (!test.test(biggestShipInput.value)) {
             biggestShipInput.setCustomValidity('Invalid coordinate');
@@ -107,14 +107,14 @@ function biggestShipButtonEvents(boardNumber, Gameboard) {
         });
     });
 
-    biggestShipInput.addEventListener('keyup', e => {
+    biggestShipInput.addEventListener('keyup', function keyUp(e) {
         if (e.keyCode === 13) {
             e.preventDefault();
             biggestShipInput.click();
         }
     });
 
-    placeBiggest.addEventListener('click', e => {
+    placeBiggest.addEventListener('click', function place(e) {
         e.preventDefault();
 
         if (test.test(biggestShipInput.value) && biggestShipInput.checkValidity()) {
@@ -159,7 +159,7 @@ function biggestShipButtonEvents(boardNumber, Gameboard) {
         }
     });
 
-    rotateBiggest.addEventListener('click', e => {
+    rotateBiggest.addEventListener('click', function rotate(e) {
         e.preventDefault();
         const biggestShip = document.querySelector(`.gameboard-${boardNumber} .biggest-ship`);
         biggestShip.classList.toggle('rotated');
@@ -178,7 +178,7 @@ function biggerShipButtonEvents(boardNumber, Gameboard) {
     const biggerShipQuantity = document.getElementById('bigger-quantity');
     let countBigger = 0;
 
-    biggerShipInput.addEventListener('input', e => {
+    biggerShipInput.addEventListener('input', function input(e) {
         e.preventDefault();
         const humanCells = document.querySelectorAll(`.gameboard-${boardNumber} .cell`);
         if (!test.test(biggerShipInput.value)) {
@@ -202,14 +202,14 @@ function biggerShipButtonEvents(boardNumber, Gameboard) {
         });
     });
 
-    biggerShipInput.addEventListener('keyup', e => {
+    biggerShipInput.addEventListener('keyup', function keyUp(e) {
         if (e.keyCode === 13) {
             e.preventDefault();
             placeBigger.click();
         }
     });
 
-    placeBigger.addEventListener('click', e => {
+    placeBigger.addEventListener('click', function place(e) {
         e.preventDefault();
         const test = new RegExp('[A-Ha-h]{1}[1-8]');
         if (
@@ -257,7 +257,7 @@ function biggerShipButtonEvents(boardNumber, Gameboard) {
         }
     });
 
-    rotateBigger.addEventListener('click', e => {
+    rotateBigger.addEventListener('click', function rotate(e) {
         e.preventDefault();
         const currentBigger = document.querySelector('.bigger-ship.current');
         currentBigger.classList.toggle('rotated');
@@ -276,7 +276,7 @@ function smallerShipButtonEvents(boardNumber, Gameboard) {
     const smallerShipQuantity = document.getElementById('smaller-quantity');
     let countSmaller = 0;
 
-    smallerShipInput.addEventListener('input', e => {
+    smallerShipInput.addEventListener('input', function input(e) {
         e.preventDefault();
         const humanCells = document.querySelectorAll(`.gameboard-${boardNumber} .cell`);
         if (!test.test(smallerShipInput.value)) {
@@ -300,14 +300,14 @@ function smallerShipButtonEvents(boardNumber, Gameboard) {
         });
     });
 
-    smallerShipInput.addEventListener('keyup', e => {
+    smallerShipInput.addEventListener('keyup', function keyUp(e) {
         if (e.keyCode === 13) {
             e.preventDefault();
             placeSmaller.click();
         }
     });
 
-    placeSmaller.addEventListener('click', e => {
+    placeSmaller.addEventListener('click', function place(e) {
         e.preventDefault();
         const test = new RegExp('[A-Ha-h]{1}[1-8]');
         if (
@@ -354,7 +354,7 @@ function smallerShipButtonEvents(boardNumber, Gameboard) {
         }
     });
 
-    rotateSmaller.addEventListener('click', e => {
+    rotateSmaller.addEventListener('click', function rotate(e) {
         e.preventDefault();
         const currentSmaller = document.querySelector('.smaller-ship.current');
         currentSmaller.classList.toggle('rotated');
@@ -371,7 +371,7 @@ function smallestShipButtonEvents(boardNumber, Gameboard, gameType, GameboardTwo
     const smallestShipQuantity = document.getElementById('smallest-quantity');
     let countSmallest = 0;
 
-    smallestShipInput.addEventListener('input', e => {
+    smallestShipInput.addEventListener('input', function input(e) {
         e.preventDefault();
         const humanCells = document.querySelectorAll(`.gameboard-${boardNumber} .cell`);
         if (!test.test(smallestShipInput.value)) {
@@ -396,14 +396,14 @@ function smallestShipButtonEvents(boardNumber, Gameboard, gameType, GameboardTwo
         });
     });
 
-    smallestShipInput.addEventListener('keyup', e => {
+    smallestShipInput.addEventListener('keyup', function keyUp(e) {
         if (e.keyCode === 13) {
             e.preventDefault();
             placeSmallest.click();
         }
     });
 
-    placeSmallest.addEventListener('click', e => {
+    placeSmallest.addEventListener('click', function place(e) {
         e.preventDefault();
         const test = new RegExp('[A-Ha-h]{1}[1-8]');
         if (
