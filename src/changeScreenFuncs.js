@@ -39,7 +39,7 @@ function showComputerBoard() {
 
 function startTwoPlayers() {}
 
-function switchGameboards() {
+function openGameboardTwoPlacements() {
     const gameboardOne = document.querySelector('#container-one');
     gameboardOne.style.display = 'none';
 
@@ -51,7 +51,20 @@ function switchGameboards() {
     document.querySelector('.main-screen').style.display = 'flex';
     document.querySelector('#player-two-name').textContent = 'Captain Hack Finch';
 
-    addEventsToAllFormButtons('two');
+    const inputs = Array.from(document.querySelectorAll('.ship-container input'));
+    inputs.forEach(input => (input.disabled = false));
+
+    const shipFormContainers = Array.from(document.querySelectorAll('.ship-container'));
+    shipFormContainers.forEach(container => {
+        if (container.classList.contains('biggest-ship-container')) {
+            container.style.display = 'flex';
+        } else {
+            container.style.display = 'none';
+        }
+    });
+
+    const btns = Array.from(document.querySelectorAll('button'));
+    btns.forEach(btn => (btn.disabled = false));
 }
 
 function openCoverBlanket() {
@@ -60,7 +73,7 @@ function openCoverBlanket() {
     document.querySelector('.main-screen').style.display = 'none';
 
     const passDeviceBtn = document.querySelector('.pass-device-btn');
-    passDeviceBtn.addEventListener('click', switchGameboards);
+    passDeviceBtn.addEventListener('click', openGameboardTwoPlacements);
 }
 
 function checkMobileDevice() {
@@ -78,7 +91,7 @@ export {
     showMainScreen,
     openShipPlacements,
     startGame,
-    switchGameboards,
+    openGameboardTwoPlacements,
     openCoverBlanket,
     checkMobileDevice,
 };

@@ -6,7 +6,6 @@ const inputEvent = new Event('input', {
     cancelable: true,
 });
 const placedShipsRectangles = [];
-
 let globalCounter = 0;
 
 function findShip(
@@ -37,6 +36,9 @@ function findShip(
 function checkShipPosition(shipInput, shipRect, boardRect) {
     const inBoard = shipIsInsideBoard(shipRect, boardRect);
     const { horizontalCrash, verticalCrash } = shipCrossesOtherShip(shipRect);
+    console.log(`inside? ${inBoard}`);
+    console.log(`horizontal crash? ${horizontalCrash}`);
+    console.log(`vertical crash? ${verticalCrash}`);
     if (inBoard && !(horizontalCrash || verticalCrash)) {
         shipInput.setCustomValidity('');
     } else if (!inBoard || horizontalCrash || verticalCrash) {
@@ -153,6 +155,7 @@ function biggestShipButtonEvents(boardNumber, Gameboard) {
             document.getElementById('bigger-ship').disabled = false;
             document.getElementById('bigger-ship').focus();
             placedShipsRectangles.push(biggestShip.getBoundingClientRect());
+            console.log('placed');
         }
     });
 
@@ -161,7 +164,7 @@ function biggestShipButtonEvents(boardNumber, Gameboard) {
         const biggestShip = document.querySelector(`.gameboard-${boardNumber} .biggest-ship`);
         biggestShip.classList.toggle('rotated');
         biggestShipInput.focus();
-
+        console.log('rotate clicked');
         checkShipPosition(biggestShipInput, biggestShip.getBoundingClientRect(), boardRect);
     });
 }
@@ -259,6 +262,7 @@ function biggerShipButtonEvents(boardNumber, Gameboard) {
         const currentBigger = document.querySelector('.bigger-ship.current');
         currentBigger.classList.toggle('rotated');
         biggerShipInput.focus();
+        console.log('rotate clicked');
         checkShipPosition(biggerShipInput, currentBigger.getBoundingClientRect(), boardRect);
     });
 }
@@ -355,6 +359,7 @@ function smallerShipButtonEvents(boardNumber, Gameboard) {
         const currentSmaller = document.querySelector('.smaller-ship.current');
         currentSmaller.classList.toggle('rotated');
         smallerShipInput.focus();
+        console.log('rotate clicked');
 
         checkShipPosition(smallerShipInput, currentSmaller.getBoundingClientRect(), boardRect);
     });
@@ -424,10 +429,11 @@ function smallestShipButtonEvents(boardNumber, Gameboard, gameType, GameboardTwo
                 /* check logic */
                 if (globalCounter === 10) {
                     if (gameType === 'one-player') startGame();
-                    else if (gameType === 'two-players') {
+                    else if (gameType === 'two-players' && GameboardTwo !== 'both placed') {
                         globalCounter = 0;
-
+                        placedShipsRectangles.length = 0;
                         openCoverBlanket();
+                        addEventsToAllFormButtons('two', GameboardTwo, 'two-players');
                     }
                 }
             }
@@ -442,7 +448,7 @@ function datasetCoordinates(ship, first, second = false, third = false, fourth =
     if (fourth) ship.dataset.fourth = fourth;
 }
 
-function addEventsToAllFormButtons(boardNumber, Gameboard, gameType, GameboardTwo = false) {
+function addEventsToAllFormButtons(boardNumber, Gameboard, gameType, GameboardTwo = 'both placed') {
     biggestShipButtonEvents(boardNumber, Gameboard);
     biggerShipButtonEvents(boardNumber, Gameboard);
     smallerShipButtonEvents(boardNumber, Gameboard);
