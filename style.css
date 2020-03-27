@@ -200,7 +200,7 @@ body {
     left: 0;
     height: 57px;
     width: 232px;
-    background-color: #087e8b17;
+    background-color: #dce2ee;
 }
 
 .main-screen .boards .biggest-ship {
@@ -386,6 +386,11 @@ body {
     .main-screen .boards .container:first-child::after {
         content: none;
     }
+
+    .main-screen .sunk-ships {
+        width: 60%;
+        margin: 0.5em 0;
+    }
 }
 
 /* ----------------------------------------------
@@ -462,6 +467,7 @@ body {
 }
 
 .place-ships .ship-container.scale-in-hor-center {
+    display: flex;
     -webkit-animation: scale-in-hor-center 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
     animation: scale-in-hor-center 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
@@ -718,7 +724,7 @@ div.jello-horizontal {
     top: 0;
     right: 0;
     width: 100vw;
-    height: 0px;
+    height: 100vh;
     background-color: #f3f3f3;
     opacity: 0;
     transition: opacity 500ms ease;
@@ -727,11 +733,12 @@ div.jello-horizontal {
     flex-flow: column wrap;
     justify-content: space-around;
     align-items: center;
+    transform: scale(0);
 }
 
 .active.cover-blanket {
-    height: 100vh;
     opacity: 1;
+    transform: scale(1);
 }
 
 .cover-blanket div p {
