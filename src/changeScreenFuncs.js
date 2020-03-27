@@ -1,5 +1,3 @@
-import { addEventsToAllFormButtons } from './formButtons';
-
 function hideStartScreen() {
     const startScreen = document.querySelector('.start-screen');
     startScreen.classList.add('hide');
@@ -37,25 +35,78 @@ function showComputerBoard() {
     sunkShipsDivs.forEach(div => (div.style.display = 'flex'));
 }
 
-function startTwoPlayers() {}
+function startTwoPlayers() {
+    openCoverBlanket();
+    const passDeviceBtn = document.querySelector('.pass-device-btn');
+    const thirdPara = document.querySelector('.cover-blanket div p:nth-child(3)');
+    const name = document.querySelector('#name');
+    name.textContent = 'Jack Aubrey';
+    passDeviceBtn.textContent = 'Start Game';
+    passDeviceBtn.style.color = 'white';
+    thirdPara.textContent = 'shoots first';
 
-function openGameboardTwoPlacements() {
+    replaceOldGameboardsWithNewOnes();
+
+    document.querySelectorAll('.gameboard-two .ship-starting-point').forEach(ship => {
+        ship.style.opacity = 0;
+    });
+
+    passDeviceBtn.addEventListener('click', () => {
+        document.querySelector('#form-container').style.display = 'none';
+        document.querySelector('#container-two').style.display = 'flex';
+        document.querySelector('#container-one').style.display = 'flex';
+        document.querySelectorAll('.sunk-ships').forEach(div => (div.style.display = 'inherit'));
+        closeCoverBlanket();
+    });
+}
+
+function hideGameboardOne() {
     const gameboardOne = document.querySelector('#container-one');
     gameboardOne.style.display = 'none';
+    document.querySelector('#player-two-name').textContent = 'Captain Hack Finch';
+}
 
+function hideGameboardTwo() {
+    const gameboardTwo = document.querySelector('#container-two');
+    gameboardTwo.style.display = 'none';
+}
+
+function openCoverBlanket(placements = false) {
+    const blanket = document.querySelector('.cover-blanket');
+    blanket.classList.add('active');
+    document.querySelector('#container-two').style.display = 'flex';
+    if (placements) {
+        const passDeviceBtn = document.querySelector('.pass-device-btn');
+        passDeviceBtn.addEventListener('click', function playerTwoPlace() {
+            hideGameboardOne();
+            closeCoverBlanket();
+            document.querySelector('#container-two').style.display = 'flex';
+            passDeviceBtn.removeEventListener('click', playerTwoPlace);
+        });
+    }
+}
+
+function closeCoverBlanket() {
     const blanket = document.querySelector('.cover-blanket');
     blanket.classList.remove('active');
+}
 
-    const gameboardTwo = document.querySelector('#container-two');
-    gameboardTwo.style.display = 'flex';
-    document.querySelector('.main-screen').style.display = 'flex';
-    document.querySelector('#player-two-name').textContent = 'Captain Hack Finch';
+function replaceOldFormWithNewOne() {
+    const form = document.querySelector('#form-container');
+    const clonedForm = form.cloneNode(true);
+
+    form.parentNode.replaceChild(clonedForm, form);
 
     const inputs = Array.from(document.querySelectorAll('.ship-container input'));
-    inputs.forEach(input => (input.disabled = false));
+    inputs.forEach(input => {
+        if (input.getAttribute('name') === 'biggest') {
+            input.disabled = false;
+        }
+    });
 
     const shipFormContainers = Array.from(document.querySelectorAll('.ship-container'));
     shipFormContainers.forEach(container => {
+        container.classList.remove('scale-in-hor-center');
         if (container.classList.contains('biggest-ship-container')) {
             container.style.display = 'flex';
         } else {
@@ -63,17 +114,24 @@ function openGameboardTwoPlacements() {
         }
     });
 
+    const labels = Array.from(document.querySelectorAll('.ship-container span span'));
+    labels.forEach((label, index) => {
+        label.style.color = '#272727';
+        label.textContent = `0/${index + 1}`;
+    });
+
     const btns = Array.from(document.querySelectorAll('button'));
     btns.forEach(btn => (btn.disabled = false));
 }
 
-function openCoverBlanket() {
-    const blanket = document.querySelector('.cover-blanket');
-    blanket.classList.add('active');
-    document.querySelector('.main-screen').style.display = 'none';
+function replaceOldGameboardsWithNewOnes() {
+    const gameboardOne = document.querySelector('.gameboard-one');
+    const clonedGameboardOne = gameboardOne.cloneNode(true);
+    gameboardOne.parentNode.replaceChild(clonedGameboardOne, gameboardOne);
 
-    const passDeviceBtn = document.querySelector('.pass-device-btn');
-    passDeviceBtn.addEventListener('click', openGameboardTwoPlacements);
+    const gameboardTwo = document.querySelector('.gameboard-two');
+    const clonedGameboardTwo = gameboardTwo.cloneNode(true);
+    gameboardTwo.parentNode.replaceChild(clonedGameboardTwo, gameboardTwo);
 }
 
 function checkMobileDevice() {
@@ -91,7 +149,10 @@ export {
     showMainScreen,
     openShipPlacements,
     startGame,
-    openGameboardTwoPlacements,
+    startTwoPlayers,
+    hideGameboardOne,
+    hideGameboardTwo,
     openCoverBlanket,
     checkMobileDevice,
+    replaceOldFormWithNewOne,
 };
