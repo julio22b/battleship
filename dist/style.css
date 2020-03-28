@@ -343,7 +343,7 @@ body {
     }
 
     .main-screen .boards .letters {
-        left: 20px;
+        left: 30px;
         top: 100px;
         height: 264px;
         font-size: 0.8em;
@@ -727,7 +727,7 @@ div.jello-horizontal {
     height: 100vh;
     background-color: #f3f3f3;
     opacity: 0;
-    transition: opacity 500ms ease;
+
     z-index: 10;
     display: flex;
     flex-flow: column wrap;

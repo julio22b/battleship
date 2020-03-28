@@ -1,3 +1,5 @@
+import { enableGbTwoCells } from './DOMutils';
+
 function hideStartScreen() {
     const startScreen = document.querySelector('.start-screen');
     startScreen.classList.add('hide');
@@ -45,18 +47,20 @@ function startTwoPlayers() {
     passDeviceBtn.style.color = 'white';
     thirdPara.textContent = 'shoots first';
 
-    replaceOldGameboardsWithNewOnes();
-
-    document.querySelectorAll('.gameboard-two .ship-starting-point').forEach(ship => {
-        ship.style.opacity = 0;
-    });
-
-    passDeviceBtn.addEventListener('click', () => {
+    passDeviceBtn.addEventListener('click', function start() {
         document.querySelector('#form-container').style.display = 'none';
         document.querySelector('#container-two').style.display = 'flex';
         document.querySelector('#container-one').style.display = 'flex';
         document.querySelectorAll('.sunk-ships').forEach(div => (div.style.display = 'inherit'));
+        enableGbTwoCells();
         closeCoverBlanket();
+        document.querySelectorAll('.gameboard-two .ship-starting-point').style.opacity = 0;
+        passDeviceBtn.removeEventListener('click', start);
+    });
+
+    passDeviceBtn.addEventListener('click', e => {
+        closeCoverBlanket();
+        document.querySelector('.main-screen').style.transform = 'scale(1)';
     });
 }
 
@@ -97,13 +101,6 @@ function replaceOldFormWithNewOne() {
 
     form.parentNode.replaceChild(clonedForm, form);
 
-    const inputs = Array.from(document.querySelectorAll('.ship-container input'));
-    inputs.forEach(input => {
-        if (input.getAttribute('name') === 'biggest') {
-            input.disabled = false;
-        }
-    });
-
     const shipFormContainers = Array.from(document.querySelectorAll('.ship-container'));
     shipFormContainers.forEach(container => {
         container.classList.remove('scale-in-hor-center');
@@ -124,14 +121,19 @@ function replaceOldFormWithNewOne() {
     btns.forEach(btn => (btn.disabled = false));
 }
 
-function replaceOldGameboardsWithNewOnes() {
-    const gameboardOne = document.querySelector('.gameboard-one');
-    const clonedGameboardOne = gameboardOne.cloneNode(true);
-    gameboardOne.parentNode.replaceChild(clonedGameboardOne, gameboardOne);
+function switchVisibilityOfShips(boardNumber, opacity) {
+    const ships = document.querySelectorAll(`.gameboard-${boardNumber} .ship-starting-point`);
+    ships.forEach(ship => (ship.style.opacity = opacity));
+}
 
-    const gameboardTwo = document.querySelector('.gameboard-two');
-    const clonedGameboardTwo = gameboardTwo.cloneNode(true);
-    gameboardTwo.parentNode.replaceChild(clonedGameboardTwo, gameboardTwo);
+function changeTurn(boardNumber, opacity, name) {
+    openCoverBlanket();
+    document.querySelector('.cover-blanket div p:nth-child(1)').textContent = `Captain`;
+    document.querySelector('#name').textContent = `${name}'s`;
+    document.querySelector('.cover-blanket div p:nth-child(3)').textContent = 'turn';
+    document.querySelector('.pass-device-btn').textContent = 'Pass Device';
+    switchVisibilityOfShips(boardNumber, opacity);
+    document.querySelector('.main-screen').style.transform = 'scale(0)';
 }
 
 function checkMobileDevice() {
@@ -155,4 +157,5 @@ export {
     openCoverBlanket,
     checkMobileDevice,
     replaceOldFormWithNewOne,
+    changeTurn,
 };

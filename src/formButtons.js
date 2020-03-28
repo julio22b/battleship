@@ -5,13 +5,18 @@ import {
     hideGameboardTwo,
     startTwoPlayers,
 } from './changeScreenFuncs';
+import { checkShipPosition, placedShipsRectangles } from './positionChecks';
 
 const test = new RegExp('[A-Ha-h]{1}[1-8]');
 const inputEvent = new Event('input', {
     bubbles: true,
     cancelable: true,
 });
-const placedShipsRectangles = [];
+const clickEvent = new Event('click', {
+    bubbles: true,
+    cancelable: true,
+});
+
 let globalCounter = 0;
 
 function findShip(
@@ -37,35 +42,6 @@ function findShip(
             cell.dataset.ship = 'ship-part';
         }
     });
-}
-
-function checkShipPosition(shipInput, shipRect, boardRect) {
-    const inBoard = shipIsInsideBoard(shipRect, boardRect);
-    const { horizontalCrash, verticalCrash } = shipCrossesOtherShip(shipRect);
-    if (inBoard && !(horizontalCrash || verticalCrash)) {
-        shipInput.setCustomValidity('');
-    } else if (!inBoard || horizontalCrash || verticalCrash) {
-        shipInput.setCustomValidity('Invalid coordinate');
-    }
-}
-
-function shipIsInsideBoard(shipRect, boardRect) {
-    const inside = boardRect.right > shipRect.right - 20 && boardRect.bottom > shipRect.bottom - 30;
-    return inside;
-}
-
-function shipCrossesOtherShip(shipRect) {
-    const bot = placedShipsRectangles.some(ship => ship.bottom === shipRect.bottom);
-    const top = placedShipsRectangles.some(ship => ship.top === shipRect.top);
-    const right = placedShipsRectangles.some(ship => ship.right === shipRect.left);
-    const left = placedShipsRectangles.some(ship => ship.left === shipRect.right);
-    const verticalCrash = placedShipsRectangles.some(
-        ship => ship.bottom >= shipRect.top && ship.top <= shipRect.bottom && (right || left),
-    );
-    const horizontalCrash = placedShipsRectangles.some(
-        ship => ship.right >= shipRect.left && ship.left <= shipRect.right && (bot || top),
-    );
-    return { horizontalCrash, verticalCrash };
 }
 
 function biggestShipButtonEvents(boardNumber, Gameboard, boardRect) {
@@ -428,7 +404,6 @@ function smallestShipButtonEvents(boardNumber, Gameboard, gameType, GameboardTwo
                     placedShipsRectangles.length = 0;
                     openCoverBlanket(true);
                     replaceOldFormWithNewOne();
-                    clickOnCellsToTypeInput(); /* gameboards have 2 events */
                     addEventsToAllFormButtons('two', GameboardTwo, 'two-players');
                     hideGameboardTwo();
                 } else if (
@@ -436,6 +411,9 @@ function smallestShipButtonEvents(boardNumber, Gameboard, gameType, GameboardTwo
                     gameType === 'two-players' &&
                     GameboardTwo === false
                 ) {
+                    document.querySelectorAll('.cell').forEach(cell => {
+                        cell.dispatchEvent(clickEvent);
+                    });
                     startTwoPlayers();
                 }
             }
@@ -457,14 +435,24 @@ function addEventsToAllFormButtons(boardNumber, Gameboard, gameType, GameboardTw
     biggerShipButtonEvents(boardNumber, Gameboard, boardRect);
     smallerShipButtonEvents(boardNumber, Gameboard, boardRect);
     smallestShipButtonEvents(boardNumber, Gameboard, gameType, GameboardTwo);
+    document.querySelector('#biggest-ship').disabled = false;
+    if (boardNumber === 'one' || globalCounter === 10) {
+        /* make it add this event only once */
+        clickOnCellsToTypeInput(boardNumber);
+    } else if (boardNumber === 'two') {
+        clickOnCellsToTypeInput(boardNumber);
+    }
 }
 
-function clickOnCellsToTypeInput() {
-    const allCells = document.querySelectorAll('.cell');
-    const inputs = Array.from(document.querySelectorAll('.ship-container input'));
-
-    allCells.forEach(cell => {
-        cell.addEventListener('click', e => {
+function clickOnCellsToTypeInput(boardNumber) {
+    const gameboardCells = document.querySelectorAll(`.gameboard-${boardNumber} .cell`);
+    const inputs = Array.from(document.querySelectorAll(`.ship-container input`));
+    gameboardCells.forEach(cell => {
+        cell.addEventListener('click', function check(e) {
+            if (globalCounter === 10) {
+                gameboardCells.forEach(cell => cell.removeEventListener('click', check));
+                return;
+            }
             const [enabledInput] = inputs.filter(input => input.disabled === false);
             enabledInput.value = e.target.dataset.coordinate;
             enabledInput.dispatchEvent(inputEvent);

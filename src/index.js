@@ -2,6 +2,7 @@ import { onePlayerGame } from './OnePlayerGame';
 import { twoPlayersGame } from './TwoPlayersGame';
 import { addEventsToAllFormButtons } from './formButtons';
 import { checkMobileDevice } from './changeScreenFuncs';
+import { disableAllCells } from './DOMutils';
 
 const startOneBtn = document.querySelector('.one-player');
 startOneBtn.addEventListener('click', e => {
@@ -18,6 +19,7 @@ startTwoBtn.addEventListener('click', e => {
     const game = twoPlayersGame();
     const { AubreyGameboard, FinchGameboard } = game;
     addEventsToAllFormButtons('one', AubreyGameboard, 'two-players', FinchGameboard);
+    disableAllCells();
     checkMobileDevice();
 });
 
