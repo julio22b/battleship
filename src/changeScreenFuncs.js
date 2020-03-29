@@ -144,7 +144,10 @@ function checkMobileDevice() {
         formTitle.textContent = 'Tap on a cell';
 
         const inputs = document.querySelectorAll('.ship-container input');
-        inputs.forEach(input => input.setAttribute('onkeydown', 'return false'));
+        inputs.forEach(input => {
+            input.setAttribute('onkeydown', 'return false');
+            input.setAttribute('onfocus', 'blur()');
+        });
     }
 }
 
