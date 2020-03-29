@@ -328,6 +328,7 @@ body {
 @media screen and (max-width: 720px) {
     .main-screen .boards {
         flex-direction: column;
+        overflow: hidden;
     }
 
     .main-screen .boards div p {

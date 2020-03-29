@@ -78,7 +78,6 @@ function biggestShipButtonEvents(boardNumber, Gameboard, boardRect) {
                 div.classList.add('ship-starting-point');
                 div.classList.add('biggest-ship');
                 cell.appendChild(div);
-
                 checkShipPosition(biggestShipInput, div.getBoundingClientRect(), boardRect);
             }
         });
@@ -460,5 +459,7 @@ function clickOnCellsToTypeInput(boardNumber) {
         });
     });
 }
+
+/* ship 3 len svg doesnt show on mobile, input check position doesnt work on mobile */
 
 export { addEventsToAllFormButtons, clickOnCellsToTypeInput };

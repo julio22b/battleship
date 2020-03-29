@@ -54,7 +54,9 @@ function startTwoPlayers() {
         document.querySelectorAll('.sunk-ships').forEach(div => (div.style.display = 'inherit'));
         enableGbTwoCells();
         closeCoverBlanket();
-        document.querySelectorAll('.gameboard-two .ship-starting-point').style.opacity = 0;
+        document
+            .querySelectorAll('.gameboard-two .ship-starting-point')
+            .forEach(ship => (ship.style.opacity = 0));
         passDeviceBtn.removeEventListener('click', start);
     });
 
@@ -142,7 +144,7 @@ function checkMobileDevice() {
         formTitle.textContent = 'Tap on a cell';
 
         const inputs = document.querySelectorAll('.ship-container input');
-        inputs.forEach(input => input.setAttribute('readonly', 'readonly'));
+        inputs.forEach(input => input.setAttribute('onkeydown', 'return false'));
     }
 }
 
