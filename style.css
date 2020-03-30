@@ -726,7 +726,7 @@ div.jello-horizontal {
     right: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #f3f3f3;
+    background-color: #f0f0f0;
     opacity: 0;
 
     z-index: 10;
@@ -745,22 +745,23 @@ div.jello-horizontal {
 .cover-blanket div p {
     text-align: center;
     padding: 0.5em 0;
-    font-size: 1.5em;
+    font-size: 1.7em;
     color: #272727;
 }
 
 .cover-blanket div p:nth-child(2) {
     font-weight: bold;
-    font-size: 2em;
+    font-size: 2.3em;
     font-family: 'Trade Winds';
     color: #087e8b;
 }
 
 .cover-blanket .pass-device-btn {
     cursor: pointer;
-    border: #ffffff 5px solid;
+    border: #272727 2px solid;
     font-size: 1.5rem;
-    padding: 1em;
+    line-height: 1.5em;
+    padding: 1em 1.5em;
     -webkit-animation: color-change-4x 4s linear infinite alternate both;
     animation: color-change-4x 4s linear infinite alternate both;
     margin-top: -5em;
