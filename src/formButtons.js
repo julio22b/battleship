@@ -50,7 +50,7 @@ function biggestShipButtonEvents(boardNumber, Gameboard, boardRect) {
     const rotateBiggest = document.getElementById('rotate-biggest');
     const biggestShipQuantity = document.getElementById('biggest-quantity');
 
-    biggestShipInput.focus();
+    if (!/Mobi|Android/i.test(navigator.userAgent)) biggestShipInput.focus();
     document.querySelector('.biggest-ship-container').classList.add('jello-horizontal');
 
     /* disable other inputs */
@@ -78,7 +78,12 @@ function biggestShipButtonEvents(boardNumber, Gameboard, boardRect) {
                 div.classList.add('ship-starting-point');
                 div.classList.add('biggest-ship');
                 cell.appendChild(div);
-                checkShipPosition(biggestShipInput, div.getBoundingClientRect(), boardRect);
+                checkShipPosition(
+                    biggestShipInput,
+                    div.getBoundingClientRect(),
+                    boardRect,
+                    boardNumber,
+                );
             }
         });
     });
@@ -139,7 +144,12 @@ function biggestShipButtonEvents(boardNumber, Gameboard, boardRect) {
         const biggestShip = document.querySelector(`.gameboard-${boardNumber} .biggest-ship`);
         biggestShip.classList.toggle('rotated');
         biggestShipInput.focus();
-        checkShipPosition(biggestShipInput, biggestShip.getBoundingClientRect(), boardRect);
+        checkShipPosition(
+            biggestShipInput,
+            biggestShip.getBoundingClientRect(),
+            boardRect,
+            boardNumber,
+        );
     });
 }
 
@@ -169,7 +179,12 @@ function biggerShipButtonEvents(boardNumber, Gameboard, boardRect) {
                 div.classList.add('current');
                 cell.appendChild(div);
 
-                checkShipPosition(biggerShipInput, div.getBoundingClientRect(), boardRect);
+                checkShipPosition(
+                    biggerShipInput,
+                    div.getBoundingClientRect(),
+                    boardRect,
+                    boardNumber,
+                );
             }
         });
     });
@@ -235,7 +250,12 @@ function biggerShipButtonEvents(boardNumber, Gameboard, boardRect) {
         const currentBigger = document.querySelector('.bigger-ship.current');
         currentBigger.classList.toggle('rotated');
         biggerShipInput.focus();
-        checkShipPosition(biggerShipInput, currentBigger.getBoundingClientRect(), boardRect);
+        checkShipPosition(
+            biggerShipInput,
+            currentBigger.getBoundingClientRect(),
+            boardRect,
+            boardNumber,
+        );
     });
 }
 
@@ -265,7 +285,12 @@ function smallerShipButtonEvents(boardNumber, Gameboard, boardRect) {
                 div.classList.add('current');
                 cell.appendChild(div);
 
-                checkShipPosition(smallerShipInput, div.getBoundingClientRect(), boardRect);
+                checkShipPosition(
+                    smallerShipInput,
+                    div.getBoundingClientRect(),
+                    boardRect,
+                    boardNumber,
+                );
             }
         });
     });
@@ -330,7 +355,12 @@ function smallerShipButtonEvents(boardNumber, Gameboard, boardRect) {
         const currentSmaller = document.querySelector('.smaller-ship.current');
         currentSmaller.classList.toggle('rotated');
         smallerShipInput.focus();
-        checkShipPosition(smallerShipInput, currentSmaller.getBoundingClientRect(), boardRect);
+        checkShipPosition(
+            smallerShipInput,
+            currentSmaller.getBoundingClientRect(),
+            boardRect,
+            boardNumber,
+        );
     });
 }
 
@@ -430,6 +460,9 @@ function datasetCoordinates(ship, first, second = false, third = false, fourth =
 function addEventsToAllFormButtons(boardNumber, Gameboard, gameType, GameboardTwo = false) {
     const board = document.querySelector(`.gameboard-${boardNumber}`);
     const boardRect = board.getBoundingClientRect();
+
+    console.log(boardRect);
+
     biggestShipButtonEvents(boardNumber, Gameboard, boardRect);
     biggerShipButtonEvents(boardNumber, Gameboard, boardRect);
     smallerShipButtonEvents(boardNumber, Gameboard, boardRect);

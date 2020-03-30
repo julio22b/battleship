@@ -1,7 +1,7 @@
 const placedShipsRectangles = [];
 
-function checkShipPosition(shipInput, shipRect, boardRect) {
-    const inBoard = shipIsInsideBoard(shipRect, boardRect);
+function checkShipPosition(shipInput, shipRect, boardRect, boardNumber) {
+    const inBoard = shipIsInsideBoard(shipRect, boardRect, boardNumber);
     const { horizontalCrash, verticalCrash } = shipCrossesOtherShip(shipRect);
     if (inBoard && !(horizontalCrash || verticalCrash)) {
         shipInput.setCustomValidity('');
@@ -10,9 +10,20 @@ function checkShipPosition(shipInput, shipRect, boardRect) {
     }
 }
 
-function shipIsInsideBoard(shipRect, boardRect) {
-    const inside = boardRect.right > shipRect.right - 20 && boardRect.bottom > shipRect.bottom - 30;
-    return inside;
+function shipIsInsideBoard(shipRect, boardRect, boardNumber = false) {
+    if (boardNumber === 'two') {
+        const inside =
+            boardRect.right > shipRect.right - 5 && boardRect.bottom / 2 > shipRect.bottom - 5;
+        console.log(boardRect.bottom, shipRect.bottom - 5);
+        console.log(inside);
+        return inside;
+    } else {
+        const inside =
+            boardRect.right > shipRect.right - 5 && boardRect.bottom > shipRect.bottom - 5;
+        console.log(boardRect.bottom, shipRect.bottom - 5);
+        console.log(inside);
+        return inside;
+    }
 }
 
 function shipCrossesOtherShip(shipRect) {
