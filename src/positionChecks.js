@@ -11,10 +11,10 @@ function checkShipPosition(shipInput, shipRect, boardRect, boardNumber) {
 }
 
 function shipIsInsideBoard(shipRect, boardRect, boardNumber = false) {
-    if (boardNumber === 'two') {
+    if (boardNumber === 'two' && !/Mobi|Android/i.test(navigator.userAgent)) {
         const inside =
             boardRect.right > shipRect.right - 5 && boardRect.bottom / 2 > shipRect.bottom - 5;
-        console.log(boardRect.bottom, shipRect.bottom - 5);
+        console.log(boardRect.bottom / 2, shipRect.bottom - 5);
         console.log(inside);
         return inside;
     } else {
