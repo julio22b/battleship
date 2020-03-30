@@ -201,6 +201,8 @@ body {
     height: 57px;
     width: 232px;
     background-color: #dce2ee;
+    animation: none;
+    transition: none;
 }
 
 .main-screen .boards .biggest-ship {
@@ -328,7 +330,7 @@ body {
 @media screen and (max-width: 720px) {
     .main-screen .boards {
         flex-direction: column;
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
     .main-screen .boards div p {
@@ -671,12 +673,22 @@ body {
 
 .game-over-screen {
     position: absolute;
-    display: none;
+    display: flex;
+    height: 0;
+    opacity: 0;
     flex-flow: column;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     margin: auto auto;
+    transition: opacity 500ms ease;
+    pointer-events: none;
+}
+
+.game-over-screen.active {
+    height: auto;
+    pointer-events: all;
+    opacity: 1;
 }
 
 .game-over-message {

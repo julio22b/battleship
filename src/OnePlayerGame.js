@@ -7,6 +7,70 @@ import { hideStartScreen, showMainScreen, openShipPlacements } from './changeScr
 import { clickOnCellsToTypeInput } from './formButtons';
 import { updateSunkShipsCounters } from './DOMutils';
 
+const computerPlacementChoices = [
+    [
+        ['A3', 'A4', 'A5', 'A6'],
+        ['CD', 'D2', 'E2'],
+        ['H5', 'H6', 'H7'],
+        ['D7', 'D8'],
+        ['A1', 'B1'],
+        ['G1', 'G2'],
+        ['C5'],
+        ['F8'],
+        ['H3'],
+        ['F5'],
+    ],
+    [
+        ['E2', 'F2', 'G2', 'H2'],
+        ['B5', 'B6', 'B7'],
+        ['F6', 'F7', 'F8'],
+        ['A2', 'A3'],
+        ['C3', 'D3'],
+        ['H5', 'H6'],
+        ['C1'],
+        ['D5'],
+        ['D7']['F4'],
+    ],
+    [
+        ['D8', 'E8', 'F8', 'G8'],
+        ['A6', 'A7', 'A8'],
+        ['H5', 'H6', 'H7'],
+        ['A2', 'A3'],
+        ['C1', 'D1'],
+        ['F1', 'G1'],
+        ['D3'],
+        ['D6'],
+        ['F3'],
+        ['F6'],
+    ],
+    [
+        ['B3', 'C3', 'D3', 'E3'],
+        ['G2', 'G3', 'G4'],
+        ['B5', 'B6', 'B7'],
+        ['D5', 'E5'],
+        ['F6', 'F7'],
+        ['H7', 'H8'],
+        ['A4'],
+        ['B1'],
+        ['E1'],
+        ['D8'],
+    ],
+    [
+        ['C1', 'D1', 'E1', 'F1'],
+        ['C6', 'C7', 'C8'],
+        ['F6', 'F7', 'F8'],
+        ['A4', 'A5'],
+        ['H4', 'H5'],
+        ['D6', 'E6'],
+        ['C3'],
+        ['D4'],
+        ['E4'],
+        ['F3'],
+    ],
+];
+
+const computerChoice = computerPlacementChoices[Math.floor(Math.random() * (4 + 1))];
+
 function onePlayerGame() {
     hideStartScreen();
     showMainScreen();
@@ -19,19 +83,12 @@ function onePlayerGame() {
     const Computer = ComputerPlayer();
     const ComputerGameboard = Gameboard();
 
-    ComputerGameboard.placeShip('A3', 'A4', 'A5', 'A6');
-    ComputerGameboard.placeShip('C2', 'D2', 'E2');
-    ComputerGameboard.placeShip('H5', 'H6', 'H7');
-    ComputerGameboard.placeShip('D7', 'D8');
-    ComputerGameboard.placeShip('A1', 'B1');
-    ComputerGameboard.placeShip('G1', 'G2');
-    ComputerGameboard.placeShip('C5');
-    ComputerGameboard.placeShip('F8');
-    ComputerGameboard.placeShip('H3');
-    ComputerGameboard.placeShip('F5');
+    computerChoice.forEach(ship => {
+        ComputerGameboard.placeShip(...ship);
+        console.log(...ship);
+    });
 
     renderShips(ComputerGameboard, 'two');
-
     playerPlay(Human, ComputerGameboard, Computer, HumanGameboard);
 
     openShipPlacements();
@@ -122,6 +179,7 @@ function computerSuccessiveHits(randomCoord, attackedCell) {
     const humanShipsDivs = document.querySelectorAll('.ship-starting-point');
     const humanCells = document.querySelectorAll('.gameboard-one .cell');
     let [letter, number] = randomCoord;
+    let [letterTwo, numberTwo] = randomCoord;
 
     humanShipsDivs.forEach(ship => {
         if (
@@ -138,17 +196,45 @@ function computerSuccessiveHits(randomCoord, attackedCell) {
             }
         }
     });
-    const newCoord = `${letter}${number}`;
-    const cellToAttackNext = Array.from(humanCells).find(
-        cell => cell.dataset.coordinate === newCoord,
+
+    humanShipsDivs.forEach(ship => {
+        if (
+            attackedCell.dataset.ship &&
+            (ship.dataset.first === attackedCell.dataset.coordinate ||
+                ship.dataset.second === attackedCell.dataset.coordinate ||
+                ship.dataset.third === attackedCell.dataset.coordinate ||
+                ship.dataset.fourth === attackedCell.dataset.coordinate)
+        ) {
+            if (ship.classList.contains('rotated') && letter > 'A') {
+                letterTwo = String.fromCharCode(letterTwo.charCodeAt(letterTwo) - 1);
+            } else if (!ship.classList.contains('rotated') && numberTwo > 1) {
+                numberTwo = parseInt(numberTwo) - 1;
+            }
+        }
+    });
+
+    const attackRightOrBot = `${letter}${number}`;
+    const attackLeftOrTop = `${letterTwo}${numberTwo}`;
+
+    const cellToAttackRightOrBot = Array.from(humanCells).find(
+        cell => cell.dataset.coordinate === attackRightOrBot,
     );
+    const cellToAttackLeftOrTop = Array.from(humanCells).find(
+        cell => cell.dataset.coordinate === attackLeftOrTop,
+    );
+
     let successiveHit;
 
-    if (cellToAttackNext.dataset.hit) {
-        successiveHit = false;
-        console.log(successiveHit);
-        return successiveHit;
-    } else if (!cellToAttackNext.dataset.hit) {
+    if (cellToAttackRightOrBot.dataset.hit) {
+        if (!cellToAttackLeftOrTop.dataset.hit) {
+            successiveHit = `${letterTwo}${numberTwo}`;
+            return successiveHit;
+        } else {
+            successiveHit = false;
+            console.log(successiveHit);
+            return successiveHit;
+        }
+    } else if (!cellToAttackRightOrBot.dataset.hit) {
         successiveHit = `${letter}${number}`;
         console.log(successiveHit);
         return successiveHit;
