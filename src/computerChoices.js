@@ -1,7 +1,7 @@
 const computerPlacementChoices = [
     [
         ['A3', 'A4', 'A5', 'A6'],
-        ['CD', 'D2', 'E2'],
+        ['C2', 'D2', 'E2'],
         ['H5', 'H6', 'H7'],
         ['D7', 'D8'],
         ['A1', 'B1'],

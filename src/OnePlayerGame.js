@@ -46,12 +46,10 @@ function playerPlay(Human, ComputerGameboard, Computer, HumanGameboard) {
                 if (!e.target.dataset.ship && Human.getPlayerTurn()) {
                     e.target.classList.add('sea');
                     cell.dataset.hit = 'true';
-
                     Human.setPlayerTurn(false);
                     Computer.playerTurn = true;
                     setTimeout(() => {
                         computerPlay(Computer, HumanGameboard, Human);
-                        computerCells.forEach(cell => cell.classList.remove('disabled'));
                     }, 1000);
                 } else if (
                     e.target.dataset.ship &&
@@ -86,6 +84,7 @@ function computerPlay(Computer, HumanGameboard, Human, attackThis = false) {
                 cell.classList.add('explosion');
                 cell.dataset.hit = 'true';
                 Human.setPlayerTurn(false);
+                computerCells.forEach(cell => cell.classList.add('disabled'));
                 updateSunkShipsCounters(HumanGameboard, 'player1');
                 setTimeout(() => {
                     computerPlay(
@@ -99,6 +98,7 @@ function computerPlay(Computer, HumanGameboard, Human, attackThis = false) {
             } else if (!cell.dataset.ship && cell.dataset.coordinate === randomCoord) {
                 cell.classList.add('sea');
                 cell.dataset.hit = 'true';
+                computerCells.forEach(cell => cell.classList.remove('disabled'));
             }
         }
 

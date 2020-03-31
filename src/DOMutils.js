@@ -27,7 +27,6 @@ function updateSunkShipsCounters(Gameboard, playerId) {
             ship.updated = true;
         }
     });
-    console.log(sunkShips);
     let biggest = 0;
     let bigger = 0;
     let smaller = 0;

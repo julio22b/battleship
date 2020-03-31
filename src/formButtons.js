@@ -258,7 +258,6 @@ function biggerShipButtonEvents(boardNumber, Gameboard, boardRect) {
         e.preventDefault();
         const currentBigger = document.querySelector('.bigger-ship.current');
         currentBigger.classList.toggle('rotated');
-        console.log(currentBigger.getBoundingClientRect());
         biggerShipInput.focus();
         const rotated = currentBigger.classList.contains('rotated');
         const [letter, number] = biggerShipInput.value.toUpperCase();
