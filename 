@@ -1,0 +1,23 @@
+[33mf154634[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m HEAD@{0}: commit (amend): changed ship pos func, need fix for gb2
+[33ma2061fb[m HEAD@{1}: commit: changed ship pos func, need fix for gb2
+[33md2c0a26[m HEAD@{2}: commit: +computer choice and made comp smarter
+[33m275e5f0[m HEAD@{3}: commit: check post check if not mobile
+[33m47cfa7c[m HEAD@{4}: commit: fixed gb2 ship pos check
+[33m9d01ea2[m HEAD@{5}: commit: added blur onfocus mobile
+[33mc73d632[m HEAD@{6}: commit: commit
+[33mbe2a981[m[33m ([m[1;31morigin/master[m[33m)[m HEAD@{7}: commit: fixed minimist
+[33m4ca07b2[m HEAD@{8}: commit: added 2 players logic
+[33mfa46b6b[m HEAD@{9}: commit: fixed multiple events bug
+[33m7e845fc[m HEAD@{10}: commit: events anon func to named func
+[33m4fe95dd[m HEAD@{11}: checkout: moving from 3895476c4b9eaec1a9bc1182dd9c2cb594fdb74d to master
+[33m3895476[m[33m ([m[1;32mgh-pages[m[33m)[m HEAD@{12}: checkout: moving from gh-pages to origin/gh-pages
+[33m3895476[m[33m ([m[1;32mgh-pages[m[33m)[m HEAD@{13}: checkout: moving from master to gh-pages
+[33m4fe95dd[m HEAD@{14}: commit: before adding names to event funcs
+[33m8dc7ce8[m HEAD@{15}: checkout: moving from master to master
+[33m8dc7ce8[m HEAD@{16}: commit: before adding gameboardtwo to form function
+[33mf4748b2[m HEAD@{17}: commit: when a cell is clicked, input value changes
+[33m9cbbae6[m HEAD@{18}: commit: add dist folder
+[33m9f9ae86[m HEAD@{19}: commit: added responsiveness to 2 players ui
+[33m8c4552a[m HEAD@{20}: commit (merge): change screen funcs
+[33m0940237[m HEAD@{21}: commit (initial): i lost my commit history :(
+[33m8c5ee01[m HEAD@{23}: commit (initial): i lost my commit history :(
