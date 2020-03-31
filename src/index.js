@@ -1,6 +1,6 @@
 import { onePlayerGame } from './OnePlayerGame';
 import { twoPlayersGame } from './TwoPlayersGame';
-import { addEventsToAllFormButtons } from './formButtons';
+import { addEventsToAllFormButtons, getBoardRect } from './formButtons';
 import { checkMobileDevice } from './changeScreenFuncs';
 import { disableAllCells } from './DOMutils';
 
@@ -9,7 +9,7 @@ startOneBtn.addEventListener('click', e => {
     e.preventDefault();
     const game = onePlayerGame();
     const { HumanGameboard } = game;
-    addEventsToAllFormButtons('one', HumanGameboard, 'one-player');
+    addEventsToAllFormButtons('one', getBoardRect(), HumanGameboard, 'one-player');
     checkMobileDevice();
 });
 
@@ -18,7 +18,13 @@ startTwoBtn.addEventListener('click', e => {
     e.preventDefault();
     const game = twoPlayersGame();
     const { AubreyGameboard, FinchGameboard } = game;
-    addEventsToAllFormButtons('one', AubreyGameboard, 'two-players', FinchGameboard);
+    addEventsToAllFormButtons(
+        'one',
+        getBoardRect(),
+        AubreyGameboard,
+        'two-players',
+        FinchGameboard,
+    );
     disableAllCells();
     checkMobileDevice();
 });

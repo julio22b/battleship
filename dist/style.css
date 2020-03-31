@@ -79,13 +79,13 @@ body {
     }
 
     .start-screen h1 {
-        font-size: 3em;
+        font-size: 3.5em;
         margin-bottom: 1em;
     }
 
     .start-screen button {
         padding: 1em;
-        margin: 2em;
+        margin: 1.5em;
         font-size: 1.5em;
     }
 }
@@ -148,10 +148,10 @@ body {
 .main-screen .boards .numbers {
     position: absolute;
     display: flex;
-    width: 464px;
+    width: 100%;
     justify-content: space-around;
     text-align: center;
-    top: 130px;
+    top: -30px;
     color: #00307e;
     font-weight: bold;
 }
@@ -160,10 +160,10 @@ body {
     position: absolute;
     display: flex;
     justify-content: space-around;
-    height: 464px;
+    height: 100%;
     flex-direction: column;
-    left: 80px;
-    top: 175px;
+    left: -30px;
+    top: 0px;
     color: #00307e;
     font-weight: bold;
 }
@@ -179,6 +179,7 @@ body {
 
 .main-screen .boards .gameboard-one,
 .main-screen .boards .gameboard-two {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     width: 464px;
@@ -341,16 +342,14 @@ body {
     }
 
     .main-screen .boards .numbers {
-        top: 70px;
-        width: 264px;
+        top: -25px;
         font-size: 0.8em;
         opacity: 0.8;
     }
 
     .main-screen .boards .letters {
-        left: 30px;
-        top: 100px;
-        height: 264px;
+        left: -22px;
+        top: 0px;
         font-size: 0.8em;
         opacity: 0.8;
     }
@@ -395,6 +394,22 @@ body {
     .main-screen .sunk-ships {
         width: 60%;
         margin: 0.5em 0;
+    }
+
+    .main-screen .sunk-ships figure.all-sunk::after {
+        content: '';
+        position: absolute;
+        height: 80%;
+        border: 3px solid rgba(255, 0, 0, 0.801);
+        transform: rotate(45deg);
+    }
+
+    .main-screen .sunk-ships figure.all-sunk::before {
+        content: '';
+        position: absolute;
+        height: 80%;
+        border: 3px solid rgba(255, 0, 0, 0.801);
+        transform: rotate(-45deg);
     }
 }
 
@@ -776,9 +791,11 @@ div.jello-horizontal {
     font-size: 1.5rem;
     line-height: 1.5em;
     padding: 1em 1.5em;
-    -webkit-animation: color-change-4x 4s linear infinite alternate both;
-    animation: color-change-4x 4s linear infinite alternate both;
+    -webkit-animation: color-change-4x 2.5s linear infinite alternate both;
+    animation: color-change-4x 2.5s linear infinite alternate both;
     margin-top: -5em;
+    font-weight: bold;
+    letter-spacing: 2px;
 }
 
 .cover-blanket .pass-device-btn p {

@@ -6,10 +6,9 @@ const Ship = function(coordinatesArr) {
     const hit = index => {
         shipCoordinates[index] = 'hit';
     };
-
     const isSunk = () => shipCoordinates.every(coordinate => coordinate === 'hit');
-
-    return { getShipCoordinates, isSunk, hit };
+    const updated = false;
+    return { getShipCoordinates, isSunk, hit, updated };
 };
 
 export { Ship };

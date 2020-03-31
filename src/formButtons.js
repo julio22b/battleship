@@ -384,7 +384,7 @@ function smallerShipButtonEvents(boardNumber, Gameboard, boardRect) {
     });
 }
 
-function smallestShipButtonEvents(boardNumber, Gameboard, gameType, GameboardTwo) {
+function smallestShipButtonEvents(boardNumber, Gameboard, gameType, GameboardTwo, boardRect) {
     const smallestShipInput = document.getElementById('smallest-ship');
     const placeSmallest = document.getElementById('place-smallest');
     const smallestShipQuantity = document.getElementById('smallest-quantity');
@@ -451,7 +451,7 @@ function smallestShipButtonEvents(boardNumber, Gameboard, gameType, GameboardTwo
                     globalCounter = 0;
                     openCoverBlanket(true);
                     replaceOldFormWithNewOne();
-                    addEventsToAllFormButtons('two', GameboardTwo, 'two-players');
+                    addEventsToAllFormButtons('two', boardRect, GameboardTwo, 'two-players');
                     hideGameboardTwo();
                 } else if (
                     globalCounter === 10 &&
@@ -475,15 +475,17 @@ function datasetCoordinates(ship, first, second = false, third = false, fourth =
     if (fourth) ship.dataset.fourth = fourth;
 }
 
-function addEventsToAllFormButtons(boardNumber, Gameboard, gameType, GameboardTwo = false) {
-    const board = document.querySelector(`.gameboard-one`);
-    const boardRect = board.getBoundingClientRect();
-
-    console.log(boardRect);
+function addEventsToAllFormButtons(
+    boardNumber,
+    boardRect,
+    Gameboard,
+    gameType,
+    GameboardTwo = false,
+) {
     biggestShipButtonEvents(boardNumber, Gameboard, boardRect);
     biggerShipButtonEvents(boardNumber, Gameboard, boardRect);
     smallerShipButtonEvents(boardNumber, Gameboard, boardRect);
-    smallestShipButtonEvents(boardNumber, Gameboard, gameType, GameboardTwo);
+    smallestShipButtonEvents(boardNumber, Gameboard, gameType, GameboardTwo, boardRect);
     document.querySelector('#biggest-ship').disabled = false;
     if (boardNumber === 'one' || globalCounter === 10) {
         /* make it add this event only once */
@@ -510,4 +512,8 @@ function clickOnCellsToTypeInput(boardNumber) {
     });
 }
 
-export { addEventsToAllFormButtons, clickOnCellsToTypeInput };
+function getBoardRect() {
+    return document.querySelector('.gameboard-one').getBoundingClientRect();
+}
+
+export { addEventsToAllFormButtons, clickOnCellsToTypeInput, getBoardRect };

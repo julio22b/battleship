@@ -8,6 +8,26 @@ function updateSunkShipsCounters(Gameboard, playerId) {
     const sunkShips = gameboardShips.filter(ship => {
         if (ship.isSunk()) return ship;
     });
+
+    figures.forEach(figure => figure.classList.remove('blink-1'));
+
+    sunkShips.forEach(ship => {
+        if (ship.updated === false) {
+            if (ship.getShipCoordinates().length === 1) {
+                setTimeout(() => {
+                    figures[3].classList.add('blink-1');
+                }, 250);
+            } else if (ship.getShipCoordinates().length === 2) {
+                figures[2].classList.add('blink-1');
+            } else if (ship.getShipCoordinates().length === 3) {
+                figures[1].classList.add('blink-1');
+            } else if (ship.getShipCoordinates().length === 4) {
+                figures[0].classList.add('blink-1');
+            }
+            ship.updated = true;
+        }
+    });
+    console.log(sunkShips);
     let biggest = 0;
     let bigger = 0;
     let smaller = 0;

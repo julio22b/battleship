@@ -54,7 +54,6 @@ function shipCrossesOtherShip(letter, number, shipLength, boardNumber, rotated) 
                 cell.dataset.coordinate === fourthCoord,
         );
     }
-    console.log(crash);
     return crash;
 }
 
