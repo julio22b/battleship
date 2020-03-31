@@ -399,7 +399,7 @@ body {
     .main-screen .sunk-ships figure.all-sunk::after {
         content: '';
         position: absolute;
-        height: 80%;
+        height: 60%;
         border: 3px solid rgba(255, 0, 0, 0.801);
         transform: rotate(45deg);
     }
@@ -407,7 +407,7 @@ body {
     .main-screen .sunk-ships figure.all-sunk::before {
         content: '';
         position: absolute;
-        height: 80%;
+        height: 60%;
         border: 3px solid rgba(255, 0, 0, 0.801);
         transform: rotate(-45deg);
     }
