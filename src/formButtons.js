@@ -5,7 +5,7 @@ import {
     hideGameboardTwo,
     startTwoPlayers,
 } from './changeScreenFuncs';
-import { checkShipPosition, placedShipsRectangles } from './positionChecks';
+import { checkShipPosition, getRotatedCoords, getNonRotatedCoords } from './positionChecks';
 
 const test = new RegExp('[A-Ha-h]{1}[1-8]');
 const inputEvent = new Event('input', {
@@ -78,11 +78,16 @@ function biggestShipButtonEvents(boardNumber, Gameboard, boardRect) {
                 div.classList.add('ship-starting-point');
                 div.classList.add('biggest-ship');
                 cell.appendChild(div);
+                const [letter, number] = biggestShipInput.value.toUpperCase();
                 checkShipPosition(
                     biggestShipInput,
                     div.getBoundingClientRect(),
                     boardRect,
                     boardNumber,
+                    letter,
+                    number,
+                    4,
+                    false,
                 );
             }
         });
@@ -102,22 +107,20 @@ function biggestShipButtonEvents(boardNumber, Gameboard, boardRect) {
             const biggestShip = document.querySelector(`.gameboard-${boardNumber} .biggest-ship`);
             const [letter, number] = biggestShipInput.value.toUpperCase();
             if (!biggestShip.classList.contains('rotated')) {
-                const firstCoord = `${letter}${number}`;
-                const secondCoord = `${letter}${parseInt(number) + 1}`;
-                const thirdCoord = `${letter}${parseInt(number) + 2}`;
-                const fourthCoord = `${letter}${parseInt(number) + 3}`;
+                const { firstCoord, secondCoord, thirdCoord, fourthCoord } = getNonRotatedCoords(
+                    letter,
+                    number,
+                    4,
+                );
                 Gameboard.placeShip(firstCoord, secondCoord, thirdCoord, fourthCoord);
                 datasetCoordinates(biggestShip, firstCoord, secondCoord, thirdCoord, fourthCoord);
                 findShip(firstCoord, secondCoord, thirdCoord, fourthCoord, boardNumber);
             } else if (biggestShip.classList.contains('rotated')) {
-                const firstCoord = `${letter}${number}`;
-                const secondCoord = `${String.fromCharCode(
-                    letter.charCodeAt(letter) + 1,
-                )}${number}`;
-                const thirdCoord = `${String.fromCharCode(letter.charCodeAt(letter) + 2)}${number}`;
-                const fourthCoord = `${String.fromCharCode(
-                    letter.charCodeAt(letter) + 3,
-                )}${number}`;
+                const { firstCoord, secondCoord, thirdCoord, fourthCoord } = getRotatedCoords(
+                    letter,
+                    number,
+                    4,
+                );
                 Gameboard.placeShip(firstCoord, secondCoord, thirdCoord, fourthCoord);
                 datasetCoordinates(biggestShip, firstCoord, secondCoord, thirdCoord, fourthCoord);
                 findShip(firstCoord, secondCoord, thirdCoord, fourthCoord, boardNumber);
@@ -135,7 +138,6 @@ function biggestShipButtonEvents(boardNumber, Gameboard, boardRect) {
             document.querySelectorAll('.ship-container')[1].classList.toggle('scale-in-hor-center');
             document.getElementById('bigger-ship').disabled = false;
             document.getElementById('bigger-ship').focus();
-            placedShipsRectangles.push(biggestShip.getBoundingClientRect());
         }
     });
 
@@ -143,12 +145,18 @@ function biggestShipButtonEvents(boardNumber, Gameboard, boardRect) {
         e.preventDefault();
         const biggestShip = document.querySelector(`.gameboard-${boardNumber} .biggest-ship`);
         biggestShip.classList.toggle('rotated');
+        const rotated = biggestShip.classList.contains('rotated');
         biggestShipInput.focus();
+        const [letter, number] = biggestShipInput.value.toUpperCase();
         checkShipPosition(
             biggestShipInput,
             biggestShip.getBoundingClientRect(),
             boardRect,
             boardNumber,
+            letter,
+            number,
+            4,
+            rotated,
         );
     });
 }
@@ -178,12 +186,16 @@ function biggerShipButtonEvents(boardNumber, Gameboard, boardRect) {
                 div.classList.add('bigger-ship');
                 div.classList.add('current');
                 cell.appendChild(div);
-
+                const [letter, number] = biggerShipInput.value.toUpperCase();
                 checkShipPosition(
                     biggerShipInput,
                     div.getBoundingClientRect(),
                     boardRect,
                     boardNumber,
+                    letter,
+                    number,
+                    3,
+                    false,
                 );
             }
         });
@@ -208,18 +220,16 @@ function biggerShipButtonEvents(boardNumber, Gameboard, boardRect) {
             const current = document.querySelector('.bigger-ship.current');
 
             if (!current.classList.contains('rotated')) {
-                const firstCoord = `${letter}${number}`;
-                const secondCoord = `${letter}${parseInt(number) + 1}`;
-                const thirdCoord = `${letter}${parseInt(number) + 2}`;
+                const { firstCoord, secondCoord, thirdCoord } = getNonRotatedCoords(
+                    letter,
+                    number,
+                    3,
+                );
                 Gameboard.placeShip(firstCoord, secondCoord, thirdCoord);
                 datasetCoordinates(current, firstCoord, secondCoord, thirdCoord);
                 findShip(firstCoord, secondCoord, thirdCoord, 'false', boardNumber);
             } else if (current.classList.contains('rotated')) {
-                const firstCoord = `${letter}${number}`;
-                const secondCoord = `${String.fromCharCode(
-                    letter.charCodeAt(letter) + 1,
-                )}${number}`;
-                const thirdCoord = `${String.fromCharCode(letter.charCodeAt(letter) + 2)}${number}`;
+                const { firstCoord, secondCoord, thirdCoord } = getRotatedCoords(letter, number, 3);
                 Gameboard.placeShip(firstCoord, secondCoord, thirdCoord);
                 datasetCoordinates(current, firstCoord, secondCoord, thirdCoord);
                 findShip(firstCoord, secondCoord, thirdCoord, 'false', boardNumber);
@@ -230,7 +240,6 @@ function biggerShipButtonEvents(boardNumber, Gameboard, boardRect) {
             current.classList.remove('current');
             biggerShipInput.focus();
             globalCounter++;
-            placedShipsRectangles.push(current.getBoundingClientRect());
             if (countBigger === 2) {
                 biggerShipInput.disabled = true;
                 biggerShipQuantity.style.color = 'green';
@@ -249,12 +258,19 @@ function biggerShipButtonEvents(boardNumber, Gameboard, boardRect) {
         e.preventDefault();
         const currentBigger = document.querySelector('.bigger-ship.current');
         currentBigger.classList.toggle('rotated');
+        console.log(currentBigger.getBoundingClientRect());
         biggerShipInput.focus();
+        const rotated = currentBigger.classList.contains('rotated');
+        const [letter, number] = biggerShipInput.value.toUpperCase();
         checkShipPosition(
             biggerShipInput,
             currentBigger.getBoundingClientRect(),
             boardRect,
             boardNumber,
+            letter,
+            number,
+            3,
+            rotated,
         );
     });
 }
@@ -284,12 +300,16 @@ function smallerShipButtonEvents(boardNumber, Gameboard, boardRect) {
                 div.classList.add('smaller-ship');
                 div.classList.add('current');
                 cell.appendChild(div);
-
+                const [letter, number] = smallerShipInput.value.toUpperCase();
                 checkShipPosition(
                     smallerShipInput,
                     div.getBoundingClientRect(),
                     boardRect,
                     boardNumber,
+                    letter,
+                    number,
+                    2,
+                    false,
                 );
             }
         });
@@ -314,17 +334,12 @@ function smallerShipButtonEvents(boardNumber, Gameboard, boardRect) {
             const current = document.querySelector('.current');
 
             if (!current.classList.contains('rotated')) {
-                const firstCoord = `${letter}${number}`;
-                const secondCoord = `${letter}${parseInt(number) + 1}`;
+                const { firstCoord, secondCoord } = getNonRotatedCoords(letter, number, 2);
                 Gameboard.placeShip(firstCoord, secondCoord);
                 datasetCoordinates(current, firstCoord, secondCoord);
                 findShip(firstCoord, secondCoord, 'false', 'false', boardNumber);
             } else if (current.classList.contains('rotated')) {
-                const firstCoord = `${letter}${number}`;
-                const secondCoord = `${String.fromCharCode(
-                    letter.charCodeAt(letter) + 1,
-                )}${number}`;
-
+                const { firstCoord, secondCoord } = getRotatedCoords(letter, number, 2);
                 Gameboard.placeShip(firstCoord, secondCoord);
                 datasetCoordinates(current, firstCoord, secondCoord);
                 findShip(firstCoord, secondCoord, 'false', 'false', boardNumber);
@@ -335,7 +350,6 @@ function smallerShipButtonEvents(boardNumber, Gameboard, boardRect) {
             current.classList.remove('current');
             smallerShipInput.focus();
             globalCounter++;
-            placedShipsRectangles.push(current.getBoundingClientRect());
             if (countSmaller === 3) {
                 smallerShipInput.disabled = true;
                 smallerShipQuantity.style.color = 'green';
@@ -355,11 +369,17 @@ function smallerShipButtonEvents(boardNumber, Gameboard, boardRect) {
         const currentSmaller = document.querySelector('.smaller-ship.current');
         currentSmaller.classList.toggle('rotated');
         smallerShipInput.focus();
+        const rotated = currentSmaller.classList.contains('rotated');
+        const [letter, number] = smallerShipInput.value.toUpperCase();
         checkShipPosition(
             smallerShipInput,
             currentSmaller.getBoundingClientRect(),
             boardRect,
             boardNumber,
+            letter,
+            number,
+            2,
+            rotated,
         );
     });
 }
@@ -419,7 +439,6 @@ function smallestShipButtonEvents(boardNumber, Gameboard, gameType, GameboardTwo
             current.classList.remove('current');
             smallestShipInput.focus();
             globalCounter++;
-            placedShipsRectangles.push(current.getBoundingClientRect());
 
             if (countSmallest === 4) {
                 smallestShipInput.disabled = true;
@@ -430,7 +449,6 @@ function smallestShipButtonEvents(boardNumber, Gameboard, gameType, GameboardTwo
                     startGame();
                 } else if (gameType === 'two-players' && GameboardTwo !== false) {
                     globalCounter = 0;
-                    placedShipsRectangles.length = 0;
                     openCoverBlanket(true);
                     replaceOldFormWithNewOne();
                     addEventsToAllFormButtons('two', GameboardTwo, 'two-players');
@@ -458,11 +476,10 @@ function datasetCoordinates(ship, first, second = false, third = false, fourth =
 }
 
 function addEventsToAllFormButtons(boardNumber, Gameboard, gameType, GameboardTwo = false) {
-    const board = document.querySelector(`.gameboard-${boardNumber}`);
+    const board = document.querySelector(`.gameboard-one`);
     const boardRect = board.getBoundingClientRect();
 
     console.log(boardRect);
-
     biggestShipButtonEvents(boardNumber, Gameboard, boardRect);
     biggerShipButtonEvents(boardNumber, Gameboard, boardRect);
     smallerShipButtonEvents(boardNumber, Gameboard, boardRect);
@@ -492,7 +509,5 @@ function clickOnCellsToTypeInput(boardNumber) {
         });
     });
 }
-
-/* ship 3 len svg doesnt show on mobile, input check position doesnt work on mobile */
 
 export { addEventsToAllFormButtons, clickOnCellsToTypeInput };

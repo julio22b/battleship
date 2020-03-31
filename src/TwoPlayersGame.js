@@ -4,7 +4,6 @@ import {
     hideStartScreen,
     showMainScreen,
     openShipPlacements,
-    switchVisibilityOfShips,
     changeTurn,
 } from './changeScreenFuncs';
 import { renderBoard } from './renderBoard';

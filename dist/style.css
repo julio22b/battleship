@@ -105,6 +105,7 @@ body {
     display: flex;
     height: 100vh;
     flex: 1;
+    overflow-y: hidden;
 }
 
 .main-screen .boards .container {
@@ -331,6 +332,7 @@ body {
     .main-screen .boards {
         flex-direction: column;
         overflow-x: hidden;
+        overflow-y: auto;
     }
 
     .main-screen .boards div p {

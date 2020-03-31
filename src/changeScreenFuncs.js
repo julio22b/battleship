@@ -60,7 +60,7 @@ function startTwoPlayers() {
         passDeviceBtn.removeEventListener('click', start);
     });
 
-    passDeviceBtn.addEventListener('click', e => {
+    passDeviceBtn.addEventListener('click', () => {
         closeCoverBlanket();
         document.querySelector('.main-screen').style.transform = 'scale(1)';
     });
