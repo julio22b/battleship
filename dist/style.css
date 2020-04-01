@@ -57,6 +57,28 @@ body {
     color: #272727d2;
 }
 
+.start-screen .intro {
+    margin: 0 auto;
+    font-size: 1.5rem;
+    color: #033a41;
+    text-align: center;
+    width: 40%;
+}
+
+.start-screen div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-screen footer a {
+    text-decoration: none;
+    color: #046570;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
 .hide {
     animation: disappear linear 250ms;
     animation-fill-mode: forwards;
@@ -76,17 +98,28 @@ body {
 @media screen and (max-width: 720px) {
     .start-screen {
         flex-direction: column;
+        height: 110vh;
     }
 
     .start-screen h1 {
         font-size: 3.5em;
-        margin-bottom: 1em;
+        margin: 0.5em 0;
     }
 
     .start-screen button {
         padding: 1em;
         margin: 1.5em;
         font-size: 1.5em;
+    }
+
+    .start-screen .intro {
+        font-size: 1.1rem;
+        width: 80%;
+    }
+
+    .start-screen div {
+        margin-top: 3em;
+        flex-direction: column;
     }
 }
 
