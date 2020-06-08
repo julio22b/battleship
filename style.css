@@ -59,10 +59,18 @@ body {
 
 .start-screen .intro {
     margin: 0 auto;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: #033a41;
     text-align: center;
     width: 40%;
+    display: flex;
+    flex-direction: column;
+}
+
+.start-screen .intro p:first-child {
+    font-weight: bold;
+    font-size: 1.7rem;
+    margin-bottom: 0.5em;
 }
 
 .start-screen div {
@@ -136,7 +144,7 @@ body {
 
 .main-screen .boards {
     display: flex;
-    height: 100vh;
+    min-height: 100vh;
     flex: 1;
     overflow-y: hidden;
 }
