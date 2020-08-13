@@ -86,6 +86,7 @@ const ComputerPlayer = () => {
             this.availableCoordinates = availableCoordinates.filter(
                 coord => coord !== coordinateToDelete,
             );
+            console.log(`pc available coords: ${this.availableCoordinates}`)
         },
         randomCoordinate: function() {
             const coordinate = this.availableCoordinates[
@@ -96,6 +97,7 @@ const ComputerPlayer = () => {
                 coord => coord === coordinate,
             );
             this.setAvailableCoordinates(this.getAvailableCoordinates(), coordinateToDelete);
+            console.log(`coordinate: ${coordinate} | maxLength: ${this.maxLength} | delete:${coordinateToDelete}`)
             return coordinate;
         },
     };

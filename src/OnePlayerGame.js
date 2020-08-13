@@ -22,7 +22,7 @@ function onePlayerGame() {
     const Computer = ComputerPlayer();
     const ComputerGameboard = Gameboard();
 
-    computerChoice.forEach(ship => {
+    computerChoice.forEach((ship) => {
         ComputerGameboard.placeShip(...ship);
     });
 
@@ -38,11 +38,11 @@ function onePlayerGame() {
 function playerPlay(Human, ComputerGameboard, Computer, HumanGameboard) {
     const computerCells = document.querySelectorAll('.gameboard-two .cell');
 
-    computerCells.forEach(cell => {
-        cell.addEventListener('click', e => {
+    computerCells.forEach((cell) => {
+        cell.addEventListener('click', (e) => {
             if (!e.target.dataset.hit && !e.target.classList.contains('disabled')) {
                 Human.sendAttack(ComputerGameboard, e.target.dataset.coordinate);
-                computerCells.forEach(cell => cell.classList.add('disabled'));
+                computerCells.forEach((cell) => cell.classList.add('disabled'));
                 if (!e.target.dataset.ship && Human.getPlayerTurn()) {
                     e.target.classList.add('sea');
                     cell.dataset.hit = 'true';
@@ -51,19 +51,15 @@ function playerPlay(Human, ComputerGameboard, Computer, HumanGameboard) {
                     setTimeout(() => {
                         computerPlay(Computer, HumanGameboard, Human);
                     }, 1000);
-                } else if (
-                    e.target.dataset.ship &&
-                    Human.getPlayerTurn() &&
-                    !e.target.dataset.hit
-                ) {
+                } else if (e.target.dataset.ship && Human.getPlayerTurn()) {
                     e.target.classList.add('explosion');
                     cell.dataset.hit = 'true';
-                    computerCells.forEach(cell => cell.classList.remove('disabled'));
+                    computerCells.forEach((cell) => cell.classList.remove('disabled'));
                     updateSunkShipsCounters(ComputerGameboard, 'player2');
                 }
                 if (ComputerGameboard.allShipsSunk()) {
                     Game.GameOver('Human');
-                    computerCells.forEach(cell => {
+                    computerCells.forEach((cell) => {
                         cell.classList.add('disabled');
                     });
                 }
@@ -78,13 +74,13 @@ function computerPlay(Computer, HumanGameboard, Human, attackThis = false) {
     const randomCoord = attackThis || Computer.randomCoordinate();
     Computer.sendAttack(HumanGameboard, randomCoord);
 
-    humanCells.forEach(cell => {
+    humanCells.forEach((cell) => {
         if (!cell.classList.contains('disabled')) {
             if (cell.dataset.coordinate === randomCoord && cell.dataset.ship && !cell.dataset.hit) {
                 cell.classList.add('explosion');
                 cell.dataset.hit = 'true';
                 Human.setPlayerTurn(false);
-                computerCells.forEach(cell => cell.classList.add('disabled'));
+                computerCells.forEach((cell) => cell.classList.add('disabled'));
                 updateSunkShipsCounters(HumanGameboard, 'player1');
                 setTimeout(() => {
                     computerPlay(
@@ -98,13 +94,13 @@ function computerPlay(Computer, HumanGameboard, Human, attackThis = false) {
             } else if (!cell.dataset.ship && cell.dataset.coordinate === randomCoord) {
                 cell.classList.add('sea');
                 cell.dataset.hit = 'true';
-                computerCells.forEach(cell => cell.classList.remove('disabled'));
+                computerCells.forEach((cell) => cell.classList.remove('disabled'));
             }
         }
 
         if (HumanGameboard.allShipsSunk()) {
             Game.GameOver('Computer');
-            computerCells.forEach(cell => {
+            computerCells.forEach((cell) => {
                 cell.classList.add('disabled');
             });
         }
@@ -119,7 +115,7 @@ function computerSuccessiveHits(randomCoord, attackedCell) {
     let [letter, number] = randomCoord;
     let [letterTwo, numberTwo] = randomCoord;
 
-    humanShipsDivs.forEach(ship => {
+    humanShipsDivs.forEach((ship) => {
         if (
             attackedCell.dataset.ship &&
             (ship.dataset.first === attackedCell.dataset.coordinate ||
@@ -135,7 +131,7 @@ function computerSuccessiveHits(randomCoord, attackedCell) {
         }
     });
 
-    humanShipsDivs.forEach(ship => {
+    humanShipsDivs.forEach((ship) => {
         if (
             attackedCell.dataset.ship &&
             (ship.dataset.first === attackedCell.dataset.coordinate ||
@@ -155,10 +151,10 @@ function computerSuccessiveHits(randomCoord, attackedCell) {
     const attackLeftOrTop = `${letterTwo}${numberTwo}`;
 
     const cellToAttackRightOrBot = Array.from(humanCells).find(
-        cell => cell.dataset.coordinate === attackRightOrBot,
+        (cell) => cell.dataset.coordinate === attackRightOrBot,
     );
     const cellToAttackLeftOrTop = Array.from(humanCells).find(
-        cell => cell.dataset.coordinate === attackLeftOrTop,
+        (cell) => cell.dataset.coordinate === attackLeftOrTop,
     );
 
     let successiveHit;
