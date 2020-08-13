@@ -21,14 +21,11 @@ function onePlayerGame() {
     const HumanGameboard = Gameboard();
     const Computer = ComputerPlayer();
     const ComputerGameboard = Gameboard();
-
     computerChoice.forEach((ship) => {
         ComputerGameboard.placeShip(...ship);
     });
-
     renderShips(ComputerGameboard, 'two');
     playerPlay(Human, ComputerGameboard, Computer, HumanGameboard);
-
     openShipPlacements();
     clickOnCellsToTypeInput();
 
@@ -72,6 +69,10 @@ function computerPlay(Computer, HumanGameboard, Human, attackThis = false) {
     const humanCells = document.querySelectorAll('.gameboard-one .cell');
     const computerCells = document.querySelectorAll('.gameboard-two .cell');
     const randomCoord = attackThis || Computer.randomCoordinate();
+    if (attackThis) {
+        Computer.setAvailableCoordinates(Computer.getAvailableCoordinates(), attackThis);
+        Computer.maxLength = Computer.maxLength - 1;
+    }
     Computer.sendAttack(HumanGameboard, randomCoord);
 
     humanCells.forEach((cell) => {
