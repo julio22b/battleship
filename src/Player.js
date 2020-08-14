@@ -1,7 +1,7 @@
 const Player = () => {
     let playerTurn = true;
     const getPlayerTurn = () => playerTurn;
-    const setPlayerTurn = bool => (playerTurn = bool);
+    const setPlayerTurn = (bool) => (playerTurn = bool);
 
     const sendAttack = (Gameboard, coordinate) => {
         Gameboard.receiveAttack(coordinate);
@@ -79,25 +79,23 @@ const ComputerPlayer = () => {
             'H8',
         ],
         maxLength: 63,
-        getAvailableCoordinates: function() {
+        getAvailableCoordinates: function () {
             return this.availableCoordinates;
         },
-        setAvailableCoordinates: function(availableCoordinates, coordinateToDelete) {
+        setAvailableCoordinates: function (availableCoordinates, coordinateToDelete) {
             this.availableCoordinates = availableCoordinates.filter(
-                coord => coord !== coordinateToDelete,
+                (coord) => coord !== coordinateToDelete,
             );
-            console.log(`pc available coords: ${this.availableCoordinates}`)
         },
-        randomCoordinate: function() {
+        randomCoordinate: function () {
             const coordinate = this.availableCoordinates[
                 Math.floor(Math.random() * (this.maxLength - 0 + 1)) + 0
             ];
             this.maxLength = this.maxLength - 1;
             const coordinateToDelete = this.getAvailableCoordinates().find(
-                coord => coord === coordinate,
+                (coord) => coord === coordinate,
             );
             this.setAvailableCoordinates(this.getAvailableCoordinates(), coordinateToDelete);
-            console.log(`coordinate: ${coordinate} | maxLength: ${this.maxLength} | delete:${coordinateToDelete}`)
             return coordinate;
         },
     };

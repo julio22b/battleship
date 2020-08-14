@@ -166,12 +166,10 @@ function computerSuccessiveHits(randomCoord, attackedCell) {
             return successiveHit;
         } else {
             successiveHit = false;
-            console.log(successiveHit);
             return successiveHit;
         }
     } else if (!cellToAttackRightOrBot.dataset.hit) {
         successiveHit = `${letter}${number}`;
-        console.log(successiveHit);
         return successiveHit;
     }
 }
