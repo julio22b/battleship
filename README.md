@@ -1,6 +1,26 @@
-# BATTLESHIP
+# Battleship
 
-**Demo:** [https://julio22b.github.io/battleship/](https://julio22b.github.io/battleship/)
+## Demo
+
+[https://julio22b.github.io/battleship/](https://julio22b.github.io/battleship/)
+
+## Installation
+
+Clone this project locally and run:
+
+```bash
+npm install
+```
+
+## Tests
+
+To run the tests use:
+
+```bash
+npm run test
+```
+
+## Pictures
 
 ![preview](https://github.com/julio22b/battleship/blob/master/dist/img/start-screen2.png)
 
@@ -15,3 +35,6 @@ By clicking **'1 player'** the user is taken to a ship placement screen where th
 By click **'2 players'** the first player is asked to place their ships, when finished the first player's gameboard will be hidden and the second player will be asked to place their ships. The first player starts the game and a screen that covers both gameboards and says who goes next is displayed, at which moment the player passes the device to the corresponding player.
 
 <img src="https://github.com/julio22b/battleship/blob/master/dist/img/preview-2-players.gif" height="540px">
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
